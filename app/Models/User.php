@@ -12,4 +12,8 @@ class User extends Model implements Authenticatable
     use HasFactory;
     use AuthenticableTrait;
     protected $fillable = ['email', 'password'];   
+
+    public function Profiles(){
+        return $this->hasOne(Profile::class);
+    }
 }

@@ -31,5 +31,9 @@ class DatabaseSeeder extends Seeder
             "user_id" => 1,
             "role_id" => 1
         ]);
+        DB::table("profiles")->insert([
+            "user_id" => 1,
+            'name'=>'nguyendangduy'
+        ]);
     }
 }

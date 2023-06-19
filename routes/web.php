@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\SettingController;
 use App\Models\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,12 @@ Route::middleware(['checkLoginUser'])->group(function(){
     Route::post("/sendmail",[MailController::class,"senMail"])->name("mail.sendmail");
 });
 
+
+// Route::get('/setting',function(){
+//     return view('setting');
+// });
+// Route::post('/setting',[SettingController::class,'store'])->name("setting.store");
+Route::post('/setting',[SettingController::class,'update'])->name("setting.update");
+Route::get('/setting',[SettingController::class,'index'])->name("setting.store");
 
 
