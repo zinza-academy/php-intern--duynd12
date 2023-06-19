@@ -1,0 +1,3 @@
+{{ $content }}
+
+Thanks<br>
