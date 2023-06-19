@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Services\LoginService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function login(Request $request){
-        $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
-            return Redirect::to("mail");
-
-        } else {
-            return Redirect::back();
-
-        }
+    private $loginService;
+    public function __construct(LoginService $loginService)
+    {
+        $this->loginService = $loginService;
+    }
+    public function login(LoginRequest $request){
+        return $this->loginService->store($request);
     }
     public function logout(){
         Auth::logout();

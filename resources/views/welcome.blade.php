@@ -24,27 +24,35 @@
                 <div class="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img src="{{URL::asset('/images/image 6.png')}}" class="mx-auto mt-2 h-24 w-24 rounded-lg w-auto" alt="">
                 </div>
-          
             <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
               <form class="space-y-6" action="{{route('login')}}" method="POST">
                 @csrf
                 <div>
                   <div class="mt-2">
-                    <input id="email"  name="email" type="text" autocomplete="text" required class="decoration-[#323941] pl-4 w-96 h-9 grow-0 border-2 border-slate-200 order-none
+                    <input id="email"  name="email" type="text" autocomplete="text" class="decoration-[#323941] pl-4 w-96 h-9 grow-0 border-2 border-slate-200 order-none
                     focus:border-sky-300  focus:outline-none order-none rounded
                     " placeholder="Email">
+                    @error('email')
+                      <span class=" text-rose-600">{{$message}}</span>
+                    @enderror
                   </div>
                 </div>
           
                 <div>
                   <div class="flex items-center justify-between">
                     <div>
-                        <input id="password"  name="password" type="password" autocomplete="text" required class=" decoration-[#323941] pl-4 w-96 h-9 grow-0 border-2 border-slate-200 order-none
+                        <input id="password"  name="password" type="password" autocomplete="text" class=" decoration-[#323941] pl-4 w-96 h-9 grow-0 border-2 border-slate-200 order-none
                         focus:outline-none focus:border-sky-300 focus:ring-1 placeholder-opacity-80 
                         rounded font-normal placeholder-color not-italic text-sm" placeholder="Password">
+                        @error('password')
+                        <span class=" text-rose-600">{{$message}}</span>
+                      @enderror
                       </div>
                   </div>
                 </div>
+                @if(Session::has('message'))
+                  <span class="text-center ml-30 text-rose-600">{{Session::get('message')}}</span>
+                @endif
                 <div class="mb-2">
                    <a href="" class="float-right mb-4 font-normal text-xs">Forgot password ?</a>
                 </div>
