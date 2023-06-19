@@ -14,7 +14,7 @@ class LoginController extends Controller
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            return Redirect::to("welcome");
+            return Redirect::to("mail");
 
         } else {
             return Redirect::back();
@@ -23,7 +23,7 @@ class LoginController extends Controller
     }
     public function logout(){
         Auth::logout();
-        return redirect()->route('welcome')->with('info','You have successfully logged out.');
+        return redirect('/')->with('info','You have successfully logged out.');
     }
     public function index()
     {

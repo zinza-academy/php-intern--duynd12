@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Models\Role;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,14 +17,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/',function(){
     return view('welcome');
 });
-Route::post("/login",[LoginController::class,"login"])->name("login");
-Route::get("/logout",[LoginController::class,"login"])->name("logout");
 
-Route::get("/mail",[MailController::class,"index"])->name("mail.index");
-Route::post("/sendmail",[MailController::class,"senMail"])->name("mail.sendmail");
+Route::post("/login",[LoginController::class,"login"])->name("login");
+Route::get("/logout",[LoginController::class,"logout"])->name("logout");
+
+Route::middleware(['checkLoginUser'])->group(function(){   
+    Route::get("/mail",[MailController::class,"index"])->name("mail.index");
+    Route::post("/sendmail",[MailController::class,"senMail"])->name("mail.sendmail");
+});
 
 
 
