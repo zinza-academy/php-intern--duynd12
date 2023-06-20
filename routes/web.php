@@ -18,16 +18,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',function(){
+Route::get('/',function() {
     return view('welcome');
 });
 
-Route::post("/login",[LoginController::class,"login"])->name("login");
-Route::get("/logout",[LoginController::class,"logout"])->name("logout");
+Route::post("/login", [LoginController::class,"login"])->name("login");
+Route::get("/logout", [LoginController::class,"logout"])->name("logout");
 
-Route::middleware(['checkLoginUser'])->group(function(){   
-    Route::get("/mail",[MailController::class,"index"])->name("mail.index");
-    Route::post("/sendmail",[MailController::class,"senMail"])->name("mail.sendmail");
+Route::middleware(['checkLoginUser'])->group(function() {   
+    Route::get("/mail", [MailController::class,"index"])->name("mail.index");
+    Route::post("/sendmail", [MailController::class,"senMail"])->name("mail.sendmail");
 });
 
 
@@ -35,7 +35,7 @@ Route::middleware(['checkLoginUser'])->group(function(){
 //     return view('setting');
 // });
 // Route::post('/setting',[SettingController::class,'store'])->name("setting.store");
-Route::post('/setting',[SettingController::class,'update'])->name("setting.update");
-Route::get('/setting',[SettingController::class,'index'])->name("setting.store");
+Route::post('/setting', [SettingController::class,'update'])->name("setting.update");
+Route::get('/setting', [SettingController::class,'index'])->name("setting.store");
 
 

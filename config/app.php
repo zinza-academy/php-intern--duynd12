@@ -168,6 +168,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Helmesvs\Notify\NotifyServiceProvider::class,
+        // DaveJamesMiller\Breadcrumbs\ServiceProvider::class
+        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class
     ])->toArray(),
 
     /*
@@ -183,6 +186,9 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
+        'Notify' => Helmesvs\Notify\Facades\Notify::class,
+        // 'Breadcrumbs' =>  DaveJamesMiller\Breadcrumbs\Facade::class
+        "Breadcrumbs" => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class 
     ])->toArray(),
 
 ];

@@ -9,11 +9,12 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
+        <link href="{{asset('css/app.css')}}">
         {{-- vite --}}
         @vite('resources/css/app.css')
         <!-- Styles -->
     </head>
+    {!! Notify::render() !!}
     <body>
         <div class="flex justify-between align-center border-2 bg-gradient-to-r from-purple-500 to-pink-500">
             <div>
@@ -27,9 +28,15 @@
         
                   </nav>
             </div>
-            <div class="p-2 flex">
-                <input type="text" placeholder="Search..." class="pl-9 rounded-sm border-2">
-                <img src="{{URL::asset('/images/image 6.png')}}" class="w-7 h-7" alt="">
+            <div class="p-2 flex justify-center items-center">
+                {{-- <input type="text" placeholder="Search..." class="pl-9 rounded-sm border-2"> --}}
+                <input class="border-2 rounded-md py-1 mr-5
+                    pl-3 focus:outline-none
+                    bg-white 
+                    focus:border-sky-500 focus:ring-sky-500" name="email" 
+                    
+                    placeholder="Search ....."/>
+                <img src="{{URL::asset('/images/image 6.png')}}" class="w-8 h-8 mr-2" alt="">
                 
             </div>
         </div>

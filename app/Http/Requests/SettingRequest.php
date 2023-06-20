@@ -23,7 +23,11 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'unique:users,email_address,'.Session::get('id')
+            'confirmPassword' => 'same:password',
+            'dob'=>'required|date',
+            'name'=>'required|string',
+            'avatar'=>'mimes:jpeg,png,jgp',
+            // 'password'=>'min:6'
         ];
     }
 }
