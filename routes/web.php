@@ -3,6 +3,7 @@
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\UserController;
 use App\Models\Role;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -37,5 +38,14 @@ Route::middleware(['checkLoginUser'])->group(function() {
 // Route::post('/setting',[SettingController::class,'store'])->name("setting.store");
 Route::post('/setting', [SettingController::class,'update'])->name("setting.update");
 Route::get('/setting', [SettingController::class,'index'])->name("setting.store");
+
+// User
+Route::get('/user', [UserController::class,'index'])->name("user.index");
+Route::get('/addUser', [UserController::class,'create'])->name("user.create");
+Route::post('/addUser', [UserController::class,'store'])->name("user.store");
+Route::get('/editUser/{id}', [UserController::class,'edit'])->name("user.edit");
+
+
+
 
 

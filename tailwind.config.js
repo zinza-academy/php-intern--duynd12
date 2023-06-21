@@ -4,7 +4,8 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
-    "./src/**/*.{html,js}"
+    "./src/**/*.{html,js}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
@@ -14,5 +15,6 @@ export default {
     },
   },
   plugins: [
+    require('flowbite/plugin')
   ],
 }
