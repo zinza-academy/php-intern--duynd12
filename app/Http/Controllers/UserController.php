@@ -2,28 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profile;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\UserRole;
 use App\Constants\Pagination;
-use Error;
-use Exception;
-use Helmesvs\Notify\Facades\Notify;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Redirect;
+use App\Http\Requests\UserRequest;
+use App\Services\UserService;
+
 
 class UserController extends Controller
 {
-    /**
+    private $userService;
+
+    /*
+        create function construct
+    */
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
+    /*
      * Display a listing of the resource.
      */
     public function index()
     {
-        $userData = User::with(['profiles','roles'])->paginate(Pagination::LIMIT_ELEMENT);
-        return view('User.User',['data'=>$userData]);
+        $userData = User::with(['profiles', 'roles'])->paginate(Pagination::LIMIT_ELEMENT);
+        return view('User.User', ['data' => $userData]);
     }
 
     /**
@@ -32,42 +37,17 @@ class UserController extends Controller
     public function create()
     {
         $role = Role::all();
-        return view('User.AddUser',['data'=>$role]);
+        return view('User.AddUser', ['data' => $role]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $data = $request->all();
-        try{
-            DB::beginTransaction();
-            
-            $user = User::create([
-                'email' => $data['email'],
-                'password' => Hash::make($data['password'])
-            ]);
-
-            Profile::create([
-                'user_id' => $user->id,
-                'name' => $data['name'],
-                'dob' => $data['dob']
-            ]);
-
-            UserRole::create([
-                'user_id' => $user->id,
-                'role_id' => $data['role_id']
-            ]);
-
-            DB::commit();
-            Notify::success('Thêm thành công user');
-            return Redirect::to('/addUser');
-        }
-        catch(Error $e){
-            DB::rollBack();
-            Notify::success($e->getMessage());
-        }
+        $this->userService->insertData($request);
+        // $this->userService->saveData($this->userService->insertData($request));
+        return redirect()->back()->withInput($request->all());
     }
 
     /**
@@ -83,21 +63,21 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        $data = User::whereId($id)->with(['profiles','roles'])->first();
+        $data = User::whereId($id)->with(['profiles', 'roles'])->get();
         $roles = Role::all();
-
-        return view('User.EditUser',[
-            'data'=>$data,
-            'roles'=>$roles
+        return view('User.EditUser', [
+            'data' => $data,
+            'roles' => $roles
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserRequest $request, string $id)
     {
-        //
+        $this->userService->updateData($request, $id);
+        return redirect()->back()->withInput($request->all());
     }
 
     /**

@@ -14,26 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        // DB::table('users')->insert([
-        //     'email' => "admin@gmail.com",
-        //     'password' => Hash::make('admin')
-        // ]);
-        DB::table('roles')->insert([
-            "name_role" => "member"
+        $this->call([
+            UserSeeder::class,
+            RoleSeeder::class,
+            RoleUserSeeder::class,
+            ProfileSeeder::class
         ]);
-        // DB::table("user_roles")->insert([
-        //     "user_id" => 1,
-        //     "role_id" => 1
-        // ]);
-        // DB::table("profiles")->insert([
-        //     "user_id" => 1,
-        //     'name'=>'nguyendangduy'
-        // ]);
     }
 }

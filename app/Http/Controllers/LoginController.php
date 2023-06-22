@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Services\LoginService;
+use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -19,16 +20,26 @@ class LoginController extends Controller
     {
         $this->loginService = $loginService;
     }
+    
+    //action login 
+
     public function login(LoginRequest $request){
+        Notify::success("Đăng nhập thành công");
         return $this->loginService->store($request);
     }
+
+    // action logout
+
     public function logout(){
         Auth::logout();
-        return redirect('/')->with('info','You have successfully logged out.');
+        Session::flush();
+        return redirect()->route('login.index');
     }
+
+    // hien form login
     public function index()
     {
-        //
+        return view('welcome');
     }
 
     /**

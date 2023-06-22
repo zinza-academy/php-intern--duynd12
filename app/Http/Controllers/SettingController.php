@@ -3,43 +3,43 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SettingRequest;
-use App\Models\Profile;
 use App\Models\User;
 use App\Services\ImageService;
 use App\Services\LoginService;
-use Error;
+use App\Services\SettingService;
+
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Helmesvs\Notify\Facades\Notify;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
+
 
 class SettingController extends Controller
 {
     protected $loginService;
     protected $imageService;
+    protected $settingService;
     private $id;
 
     //ham khoi tao 
 
-    public function __construct(LoginService $loginService,ImageService $imageService)
+    public function __construct(LoginService $loginService, ImageService $imageService, SettingService $settingService)
     {
         $this->loginService = $loginService;
         $this->imageService = $imageService;
+        $this->settingService = $settingService;
     }
-
 
     /**
      * Display a listing of the resource.
      */
-    
+
     public function index()
     {
         $this->id = $this->loginService->getSessionId();
-        $data = User::with('Profiles')->whereId($this->id)->get();
-        return view ('setting',[
-            'data'=>$data,
-            'breadcrumbs'=>['Home','Setting']
+        $data = User::with('Profiles')->find($this->id);
+        return view('setting', [
+            'data' => $data,
+            'breadcrumbs' => ['Home', 'Setting']
         ]);
     }
 
@@ -56,7 +56,7 @@ class SettingController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request -> all();
+        $data = $request->all();
         dd($data);
     }
 
@@ -81,53 +81,8 @@ class SettingController extends Controller
      */
     public function update(SettingRequest $request)
     {
-        $data = $request->all();
-        $id = $this->loginService->getSessionId();
-        $userData = User::find($id);
-        if ($request->file('avatar')->isValid()) {
-            $image_name = $this->imageService->storeImage($request);
-            $data['avatar'] = $image_name;
-        } else {
-            Notify::error("File không hợp lệ");
-            return Redirect::to('/setting');
-        }
-        $password = $userData['password'];
-        $oldPassword = $data['oldPassword'];
-        $newPassword = $data['password'];
-        unset($data['email']);
-        if ($oldPassword == null) {
-            unset($data['oldPassword']);
-            unset($data['confirmPassword']);
-            unset($data['password']);
-        }
-        else{
-            $boolean = Hash::check($oldPassword,$password);
-        }
-        try{
-            DB::beginTransaction();
-            if (isset($boolean) && $boolean) {
-                User::findOrFail($id)->update([
-                    'password' => Hash::make($newPassword)
-                ]);
-            }
-            else if ($oldPassword !== null) {
-                Notify::error("Mật khẩu cũ không đúng");
-                return Redirect::to('/setting');
-            }
-            Profile::whereUserId($id)->update([
-                'name'=>$data['name'],
-                'dob'=>$data['dob'],
-                'avatar'=>$data['avatar']
-            ]);
-            DB::commit();
-            Notify::success("Update thành công");
-        }
-        catch(Error $e) {
-            DB::rollBack();
-            Notify::error($e->getMessage());
-        }
-
-        return Redirect::to('/setting');
+        $this->settingService->update($request);
+        return Redirect::back()->withInput($request->all());
     }
 
     /**

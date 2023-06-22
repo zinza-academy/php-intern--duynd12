@@ -13,7 +13,7 @@
         <div class="flex items-end flex-row h-20 gap-2 " style="width: 650px">
             <div class="flex flex-col items-start gap-2 h-20 w-80">
                 <label for="">Name</label>
-                <input id="name" class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="name" placeholder="Name"/>
+                <input value="{{old('name')}}" id="name" class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="name" placeholder="Name"/>
                 @error('name')
                     {{-- <span class=" text-rose-600">{{$message}}</span> --}}
                 @enderror
@@ -22,18 +22,18 @@
             </div> 
             <div class="flex flex-col items-start gap-2 h-20 w-80">
                 <label for="">Email</label>
-                <input class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="email" placeholder="Email"/>
+                <input value="{{old('email')}}" class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="email" placeholder="Email"/>
             </div>  
         </div>
         <div class="flex items-end flex-row h-20 gap-2" style="width: 980px">
             <div class="flex flex-col items-start gap-2 h-20 w-80">
                 <label for="">Password</label>
-                <input class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="password" id="password" placeholder="Password"/>
+                <input value="{{old('password')}}" class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="password" id="password" placeholder="Password"/>
                 <span id ="msg_password" style="color:red;display:none">Mật khẩu không khớp nhau</span>
             </div>  
             <div class="flex flex-col items-start gap-2 h-20 w-80">
                 <label for="">Dob</label>
-                <input type="date"  class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="dob" placeholder="Dob"/>
+                <input value="{{old('dob')}}" type="date"  class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="dob" placeholder="Dob"/>
             </div>
             <div class="flex flex-col items-start gap-2 h-20 w-80">
                 <label for="role">Role</label>

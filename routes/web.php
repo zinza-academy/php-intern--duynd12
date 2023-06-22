@@ -19,33 +19,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',function() {
-    return view('welcome');
+Route::middleware(['checkLoginUser'])->group(function () {
+
+    Route::get("/mail", [MailController::class, "index"])->name("mail.index");
+    Route::post("/sendmail", [MailController::class, "sendMail"])->name("mail.sendmail");
+
+    // user
+    Route::controller(UserController::class)->group(function () {
+        Route::get('/user', 'index')->name("user.index");
+        Route::get('/addUser', 'create')->name("user.create");
+        Route::post('/addUser', 'store')->name("user.store");
+        Route::get('/user/{id}', 'edit')->name("user.edit");
+        Route::patch('/user/{id}', 'update')->name("user.update");
+    });
+
+    //setting 
+    Route::controller(SettingController::class)->group(function () {
+        Route::post('/setting', 'update')->name("setting.update");
+        Route::get('/setting', 'index')->name("setting.store");
+    });
+
+    //dashboard
+
+    Route::get('/', function () {
+        return view('dashboard');
+    });
 });
-
-Route::post("/login", [LoginController::class,"login"])->name("login");
-Route::get("/logout", [LoginController::class,"logout"])->name("logout");
-
-Route::middleware(['checkLoginUser'])->group(function() {   
-    Route::get("/mail", [MailController::class,"index"])->name("mail.index");
-    Route::post("/sendmail", [MailController::class,"senMail"])->name("mail.sendmail");
+//login , logout
+Route::controller(LoginController::class)->group(function () {
+    Route::get("/login", "index")->name("login.index");
+    Route::post("/login", "login")->name("login");
+    Route::get("/logout", "logout")->name("logout.logout");
 });
-
-
-// Route::get('/setting',function(){
-//     return view('setting');
-// });
-// Route::post('/setting',[SettingController::class,'store'])->name("setting.store");
-Route::post('/setting', [SettingController::class,'update'])->name("setting.update");
-Route::get('/setting', [SettingController::class,'index'])->name("setting.store");
-
-// User
-Route::get('/user', [UserController::class,'index'])->name("user.index");
-Route::get('/addUser', [UserController::class,'create'])->name("user.create");
-Route::post('/addUser', [UserController::class,'store'])->name("user.store");
-Route::get('/editUser/{id}', [UserController::class,'edit'])->name("user.edit");
-
-
-
-
-
