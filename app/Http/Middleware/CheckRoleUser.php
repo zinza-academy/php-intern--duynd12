@@ -18,12 +18,12 @@ class CheckRoleUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $id = Auth::id();
             $userData = User::with(['roles'])->find($id);
             $nameRole = $userData['roles'][0]['name_role'];
 
-            if($nameRole === 'member'){
+            if ($nameRole === 'member') {
                 return redirect()->route('403.fobidden');
             }
         };
