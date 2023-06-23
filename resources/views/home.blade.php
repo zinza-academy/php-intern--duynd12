@@ -13,6 +13,7 @@
         <link href="{{asset('css/app.css')}}">
         {{-- vite --}}
         @vite('resources/css/app.css')
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
         <!-- Styles -->
     </head>
     {!! Notify::render() !!}
@@ -26,10 +27,9 @@
         <div>
             footer    
         </div>
-        @yield('script')
+        @yield('js')
     </body>
     <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.js"></script>
-
 
 </html>

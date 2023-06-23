@@ -76,3 +76,8 @@ ip_avatar.onchange = function(e) {
     }
     previousURL = imageURL;
 }
+
+
+var list_input = document.querySelectorAll('list-input input');
+console.log(list_input);
+console.log("hello world");

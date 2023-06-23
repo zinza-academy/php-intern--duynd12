@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Role;
 use App\Models\User;
 use App\Constants\Pagination;
+use app\Constants\StatusConstants;
 use App\Http\Requests\UserRequest;
 use App\Services\UserService;
-
+use Exception;
+use Helmesvs\Notify\Facades\Notify;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -25,10 +29,19 @@ class UserController extends Controller
     /*
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $userData = User::with(['profiles', 'roles'])->paginate(Pagination::LIMIT_ELEMENT);
-        return view('User.User', ['data' => $userData]);
+        $column = 'status';
+
+        $userData = User::with('Profiles', 'roles')
+            ->withTrashed();
+        $param = $request->query($column);
+        if ($param !== null) {
+            $userData = $userData->orderBy($column, $param)->paginate(Pagination::LIMIT_ELEMENT);
+        } else {
+            $userData = $userData->paginate(Pagination::LIMIT_ELEMENT);
+        }
+        return view('User.User', ['data' => $userData, 'param' => $param]);
     }
 
     /**
@@ -85,6 +98,32 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        try {
+            DB::beginTransaction();
+
+            User::findOrFail($id)->delete();
+            $this->userService->update($id, ['status' => StatusConstants::NO_ACTIVE]);
+
+            DB::commit();
+            Notify::success("Xoa thanh cong");
+        } catch (Exception $e) {
+            DB::rollBack();
+            Notify::error("Xoa that bai");
+        }
+        // User::where('id',$id)->update([
+        //     'status'=>"No Active"
+        // ]);
+        return redirect()->route('user.index');
+    }
+
+    // delete many user 
+
+    public function deleteUsers(Request $request)
+    {
+
+        $userIds = $request->input('ids');
+        User::whereIn('id', $userIds)->delete();
+
+        return response()->json(['message' => 'Users deleted successfully']);
     }
 }

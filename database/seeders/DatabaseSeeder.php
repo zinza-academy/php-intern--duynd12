@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
             RoleUserSeeder::class,
             ProfileSeeder::class
         ]);
+     
     }
 }
