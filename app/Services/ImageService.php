@@ -10,12 +10,12 @@ class ImageService
     // xu ly upload anh , luu vao storage 
     // return image_name ( ten file )
 
-    public function storeImage($request)
+    public function storeImage($request, $title)
     {
-        $destination_path = 'public/images/avatar';
-        $image = $request->file('avatar');
+        $destination_path = 'public/images/' . $title;
+        $image = $request->file($title);
         $image_name = $image->getClientOriginalName();
-        $path = $request->file('avatar')->storeAs($destination_path, $image_name);
+        $path = $request->file($title)->storeAs($destination_path, $image_name);
         return $image_name;
     }
 
@@ -25,7 +25,7 @@ class ImageService
     {
         if ($request->hasFile($name)) {
             if ($request->file($name)->isValid()) {
-                $image_name = $this->storeImage($request);
+                $image_name = $this->storeImage($request, $name);
                 $data[$name] = $image_name;
             } else {
                 Notify::error("File không hợp lệ");

@@ -13,8 +13,7 @@ use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class UserController extends Controller
-{
+class UserController extends Controller {
     private $userService;
 
     /*
@@ -33,7 +32,7 @@ class UserController extends Controller
     {
         $column = 'status';
 
-        $userData = User::with('Profiles', 'roles')
+        $userData = User::with('profiles', 'roles')
             ->withTrashed();
         $param = $request->query($column);
         if ($param !== null) {

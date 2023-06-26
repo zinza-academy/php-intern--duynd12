@@ -6,24 +6,19 @@
 
 @section('content')
 <div class="">
-    <div class="flex aligns-center w-full h-20 justify-between py-3 px-3" style="">
-        <h1 class="text-base font-bold" style="color:#0000000;line-height:80px">User Management</h1>
-        <button class="mr-2 rounded" style="background-color:#3CA3DD;height:40px;width:85px;margin-top:15px">
-            <a href="{{route('user.create')}}" class="text-sm" style="color:white">New User</a>
-        </button>
-    </div>
+    <x-title-component name="user"></x-title-component>
     <div class="w-full" style="height: 801px">
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div class="pb-4 bg-white dark:bg-gray-900">
-        <label for="table-search" class="sr-only">Search</label>
-        <div class="relative mt-1">
-            <div class="inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                <button type="submit" id="delete-users-btn" class="mr-2 rounded text-white" style="background-color:#3CA3DD;height:40px;width:130px;margin-top:15px">
-                    Delete Users
-                </button>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <div class="pb-4 bg-white dark:bg-gray-900">
+            <label for="table-search" class="sr-only">Search</label>
+            <div class="relative mt-1">
+                <div class="inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <button type="submit" id="delete-users-btn" class="mr-2 rounded text-white" style="background-color:#3CA3DD;height:40px;width:130px;margin-top:15px">
+                        Delete Users
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -46,6 +41,7 @@
                 <th scope="col" class="px-6 py-3 flex">
                     <img style="height: 16px;width:16px ;margin-right:10px" src="{{URL::asset('images/time.png')}}" alt="">
                         <span class="font-normal">Status</span>
+
                         <form action="{{route('user.index')}}" method="GET">
                             @if($param == \App\Constants\StatusConstants::DESC)
                                 <input name="status" value="{{\App\Constants\StatusConstants::ASC}}" hidden/>

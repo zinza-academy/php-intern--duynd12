@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class DatabaseService
 {
+
     protected $model;
 
     // create function construct
@@ -37,5 +38,22 @@ class DatabaseService
     public function update($id, $data)
     {
         return $this->model::findOrFail($id)->update($data);
+    }
+
+
+    /**
+     * update data 
+     */
+
+    public function delete($id)
+    {
+        return $this->model::findOrFail($id)->delete();
+    }
+
+    // get data with soft delete
+
+    public function getDataTrashed($array)
+    {
+        return $this->model::with($array)->withTrashed();
     }
 }

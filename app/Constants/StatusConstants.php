@@ -8,4 +8,6 @@ class StatusConstants {
 
     const DESC = "desc";
     const ASC = "asc";
+
+    const COMPANY_ACTIVE = ['Active', 'No Active'];
 }

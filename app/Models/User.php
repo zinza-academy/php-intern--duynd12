@@ -15,7 +15,7 @@ class User extends Model implements Authenticatable
     use SoftDeletes;
     protected $fillable = ['email', 'password'];
 
-    public function Profiles()
+    public function profiles()
     {
         return $this->hasOne(Profile::class);
     }

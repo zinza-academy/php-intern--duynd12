@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SettingController;
@@ -33,17 +34,23 @@ Route::middleware(['checkLoginUser'])->group(function () {
             Route::post('/addUser', 'store')->name("user.store");
             Route::get('/user/{id}', 'edit')->name("user.edit");
             Route::patch('/user/{id}', 'update')->name("user.update");
-            Route::delete('/user/{id}', 'destroy')->name("user.delete");
+            Route::delete('/user/{id}', 'destroy')->name("user.destroy");
             Route::delete('/users', 'deleteUsers')->name("user.deleteUsers");
-
         });
     });
+
+    //setting 
 
     Route::controller(SettingController::class)->group(function () {
         Route::post('/setting', 'update')->name("setting.update");
         Route::get('/setting', 'index')->name("setting.store");
     });
-    //setting 
+
+    // company
+
+    Route::middleware(['checkRoleAdmin'])->group(function () {
+        Route::resource('companies', CompanyController::class);
+    });
 
     //dashboard
 
@@ -62,10 +69,7 @@ Route::get('403-fobidden', function () {
     return view('403Auth');
 })->name('403.fobidden');
 
-// Route::get('getUser',function() {
-//     User::withTrashed()->find(1)->restore();
-// });
- // user
-    Route::controller(UserController::class)->group(function () {
-        Route::get('/sort', 'sort')->name("user.sort");
-    });
+// user
+Route::controller(UserController::class)->group(function () {
+    Route::get('/sort', 'sort')->name("user.sort");
+});
