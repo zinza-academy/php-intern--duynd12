@@ -2,13 +2,15 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheckRoleAdmin {
+class CheckRoleAdmin
+{
     /**
      * Handle an incoming request.
      *
@@ -17,11 +19,7 @@ class CheckRoleAdmin {
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            $id = Auth::id();
-            $userData = User::with(['roles'])->find($id);
-            $nameRole = $userData['roles'][0]['name_role'];
-
-            if ($nameRole === 'administrator') {
+            if (Auth::user()->role === 0) {
                 return $next($request);
             }
         };

@@ -2,6 +2,13 @@
 
 namespace app\Constants;
 
-class RoleContants {
-    CONST ARRAY_ROLE = ['administrator','company_account','member'];
+class RoleContants
+{
+    // const ARRAY_ROLE = ['company_account'];
+
+    const ARRAY_ROLE = [
+        '0' => 'administrator',
+        '1' => 'company_account',
+        '2' => 'member'
+    ];
 }

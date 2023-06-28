@@ -22,10 +22,12 @@ class CompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name_company'=>'required|string',
-            'address'=>'required|string',
-            'logo'=>'mimes:jpeg,png,jgp',
-            'max_users'=>'required|numeric|min:0',
+            'name' => 'required|string|unique:companies',
+            'address' => 'required|string',
+            'logo' => 'nullable|mimes:jpeg,png,jgp|max:1024',
+            'max_users' => 'required|numeric|min:0',
+            'expired_time' => 'nullable',
+            'status' => 'required'
         ];
     }
 }

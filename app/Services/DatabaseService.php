@@ -52,8 +52,16 @@ class DatabaseService
 
     // get data with soft delete
 
-    public function getDataTrashed($array)
+    public function getDataTrashed($array = null)
     {
-        return $this->model::with($array)->withTrashed();
+        return $array = null ? $this->model->withTrashed() : $this->model::with($array)->withTrashed();
+    }
+
+    /**
+     * Retrieve all data of repository
+     */
+    public function all($array = null)
+    {
+        return $array == null ? $this->model : $this->model::with($array);
     }
 }

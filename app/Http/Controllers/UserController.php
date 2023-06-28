@@ -7,13 +7,16 @@ use App\Models\User;
 use App\Constants\Pagination;
 use app\Constants\StatusConstants;
 use App\Http\Requests\UserRequest;
+use App\Models\Company;
 use App\Services\UserService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
     private $userService;
 
     /*
@@ -32,7 +35,7 @@ class UserController extends Controller {
     {
         $column = 'status';
 
-        $userData = User::with('profiles', 'roles')
+        $userData = User::with('profiles')
             ->withTrashed();
         $param = $request->query($column);
         if ($param !== null) {
@@ -48,18 +51,20 @@ class UserController extends Controller {
      */
     public function create()
     {
-        $role = Role::all();
-        return view('User.AddUser', ['data' => $role]);
+        $companies = Company::all();
+        return view('User.AddUser', ['companies' => $companies]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
+    public function store(UserRequest $userRequest)
     {
-        $this->userService->insertData($request);
-        // $this->userService->saveData($this->userService->insertData($request));
-        return redirect()->back()->withInput($request->all());
+        $payload = $userRequest->all();
+        $payload['password'] = Hash::make($payload['password']);
+        $this->userService->insertData($payload, $userRequest);
+
+        return back();
     }
 
     /**
@@ -75,11 +80,12 @@ class UserController extends Controller {
      */
     public function edit(string $id)
     {
-        $data = User::whereId($id)->with(['profiles', 'roles'])->get();
-        $roles = Role::all();
+        $data = User::whereId($id)->with(['profiles'])->first();
+        $companies = Company::all();
+
         return view('User.EditUser', [
             'data' => $data,
-            'roles' => $roles
+            'companies' => $companies
         ]);
     }
 
@@ -89,7 +95,7 @@ class UserController extends Controller {
     public function update(UserRequest $request, string $id)
     {
         $this->userService->updateData($request, $id);
-        return redirect()->back()->withInput($request->all());
+        return back();
     }
 
     /**
@@ -101,7 +107,6 @@ class UserController extends Controller {
             DB::beginTransaction();
 
             User::findOrFail($id)->delete();
-            $this->userService->update($id, ['status' => StatusConstants::NO_ACTIVE]);
 
             DB::commit();
             Notify::success("Xoa thanh cong");
@@ -109,9 +114,7 @@ class UserController extends Controller {
             DB::rollBack();
             Notify::error("Xoa that bai");
         }
-        // User::where('id',$id)->update([
-        //     'status'=>"No Active"
-        // ]);
+
         return redirect()->route('user.index');
     }
 

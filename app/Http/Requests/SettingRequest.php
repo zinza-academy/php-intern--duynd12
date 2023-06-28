@@ -2,8 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\CheckSizeFile;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rule;
 
 class SettingRequest extends FormRequest
 {
@@ -24,10 +26,9 @@ class SettingRequest extends FormRequest
     {
         return [
             'confirmPassword' => 'same:password',
-            'dob'=>'required|date',
-            'name'=>'required|string',
-            'avatar'=>'mimes:jpeg,png,jgp',
-            // 'password'=>'min:6'
+            'dob' => 'required|date',
+            'name' => 'required|string',
+            'avatar' => 'mimes:jpeg,png,jgp|max:1024',
         ];
     }
 }

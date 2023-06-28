@@ -10,10 +10,10 @@ class Company extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['id', 'name_company', 'max_users', 'logo', 'active', 'expired_time', 'address'];
+    protected $fillable = ['id', 'name', 'max_users', 'logo', 'status', 'expired_time', 'address'];
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'company_members', 'company_id', 'user_id');
+        return $this->hasMany(User::class);
     }
 }
