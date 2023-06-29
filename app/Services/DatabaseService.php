@@ -54,7 +54,7 @@ class DatabaseService
 
     public function getDataTrashed($array = null)
     {
-        return $array = null ? $this->model->withTrashed() : $this->model::with($array)->withTrashed();
+        return $array === null ? $this->model->withTrashed() : $this->model::with($array)->withTrashed();
     }
 
     /**

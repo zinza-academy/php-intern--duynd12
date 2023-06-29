@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('email');
             $table->string('password');
-            $table->tinyInteger('role')->default(0);
-            $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('cascade');
+            $table->tinyInteger('role')->default(1)->comment('1:admin,2:ca_user,3:member');
+            $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('set null');
             $table->softDeletes();
             $table->timestamps();
         });

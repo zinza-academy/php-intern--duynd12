@@ -2,8 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Role;
-use App\Models\User;
+
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CheckRoleAdmin
 {
+    const ADMIN = 1;
     /**
      * Handle an incoming request.
      *
@@ -19,7 +19,7 @@ class CheckRoleAdmin
     public function handle(Request $request, Closure $next): Response
     {
         if (Auth::check()) {
-            if (Auth::user()->role === 0) {
+            if (Auth::user()->role === self::ADMIN) {
                 return $next($request);
             }
         };

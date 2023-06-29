@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
             $table->string('name');
             $table->date('dob')->nullable();
             $table->text('avatar')->nullable();
             $table->integer('point')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

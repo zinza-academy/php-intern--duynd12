@@ -31,4 +31,15 @@ class PaginatorService
         }
         return $data;
     }
+
+    // sort data
+
+    public function sortData($request, $name, $data)
+    {
+        $param = $this->getParam($request, $name);
+        if ($param !== null) {
+            $data = $data->orderBy($name, $param);
+        }
+        return $data;
+    }
 }

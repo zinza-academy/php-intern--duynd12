@@ -34,7 +34,7 @@
                     <select id='role'
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="role_id" placeholder="Dob">
-                        @foreach (App\Constants\RoleContants::ARRAY_ROLE as $key => $role)
+                        @foreach (App\Constants\RoleConstants::ARRAY_ROLE as $key => $role)
                             <option value="{{ $key }}">{{ $role }}</option>
                         @endforeach
                     </select>
@@ -44,8 +44,8 @@
                     <select id='companies'
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="company_id">
-                        @foreach ($companies as $company)
-                            <option value="{{ $company['id'] }}">{{ $company['name'] }}</option>
+                        @foreach ($companies as $key => $company)
+                            <option value="{{ $key }}">{{ $company }}</option>
                         @endforeach
                     </select>
                 </div>

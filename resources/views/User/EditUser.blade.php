@@ -32,10 +32,6 @@
                         @endforeach
                     </select>
                 </div>
-                {{-- <div class="flex flex-col items-start gap-2 h-20 w-80">
-                <label for="">Email</label>
-                <input value={{$data['email']}} class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500" name="email" placeholder="Email"/>
-            </div>   --}}
             </div>
             <div class="flex items-end flex-row h-20 gap-2" style="width: 980px">
 
@@ -50,7 +46,7 @@
                     <select id='role'
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="role" placeholder="Dob">
-                        @foreach (App\Constants\RoleContants::ARRAY_ROLE as $key => $role)
+                        @foreach (App\Constants\RoleConstants::ARRAY_ROLE as $key => $role)
                             <option {{ $data->role === $key ? 'selected' : '' }} value="{{ $key }}">
                                 {{ $role }}</option>
                         @endforeach

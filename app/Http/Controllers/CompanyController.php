@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use App\Constants\Pagination;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
-use App\Models\User;
 use App\Services\CompanyService;
 use App\Services\ImageService;
 use App\Services\PaginatorService;
-use App\Constants\StatusConstants;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -38,7 +36,8 @@ class CompanyController extends Controller
 
         $data = $this->companyService->all(['users.profiles']);
 
-        $data = $this->paginatorService->paginate($request, $column, $data);
+        $data = $this->paginatorService->sortData($request, $column, $data);
+        $data = $data->paginate(Pagination::LIMIT_ELEMENT);
         $param = $this->paginatorService->getParam($request, $column);
 
         return view('company.Company', ['data' => $data, 'param' => $param]);
@@ -49,8 +48,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $users = User::with('profiles')->get();
-        return view('company.addCompany', ['users' => $users]);
+        return view('company.addCompany');
     }
 
     /**
@@ -94,7 +92,7 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, string $id)
     {
-        $data = $request->only(['name', 'address', 'max_users', 'expired_time', 'status', 'logo']);
+        $data = $request->validated();
         $data = $this->imageService->checkSizeImage($request, 'logo', $data);
         try {
             $this->companyService->update($id, $data);

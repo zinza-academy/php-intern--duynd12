@@ -30,7 +30,7 @@
                                 <img style="height: 16px;width:16px ;margin-right:10px"
                                     src="{{ URL::asset('images/time.png') }}" alt="">
                                 <span class="font-normal">Status</span>
-                                <x-sort-component name="active" :param="$param"></x-sort-component>
+                                <x-sort-component name="status" :param="$param"></x-sort-component>
                             </th>
                             <th scope="col" class="px-6 py-3">
                                 <div class="flex items-center">
@@ -94,13 +94,10 @@
             var listStatus = document.querySelectorAll('.status')
             for (let i = 0; i < listStatus.length; i++) {
                 let status = listStatus[i];
-                // status.style.width = '80px';
                 status.style.display = 'block';
 
-                console.log(status.innerHTML.trim());
                 if (status.innerHTML.trim() !== 'Active') {
                     status.style.backgroundColor = 'red';
-                    status.style.color = 'red';
 
                 } else {
                     status.style.backgroundColor = '#42C867';

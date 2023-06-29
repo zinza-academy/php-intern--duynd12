@@ -8,6 +8,7 @@ use App\Constants\Pagination;
 use app\Constants\StatusConstants;
 use App\Http\Requests\UserRequest;
 use App\Models\Company;
+use App\Services\PaginatorService;
 use App\Services\UserService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
@@ -18,14 +19,15 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     private $userService;
-
+    private $paginatorService;
     /*
         create function construct
     */
 
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, PaginatorService $paginatorService)
     {
         $this->userService = $userService;
+        $this->paginatorService = $paginatorService;
     }
 
     /*
@@ -35,14 +37,12 @@ class UserController extends Controller
     {
         $column = 'status';
 
-        $userData = User::with('profiles')
-            ->withTrashed();
-        $param = $request->query($column);
-        if ($param !== null) {
-            $userData = $userData->orderBy($column, $param)->paginate(Pagination::LIMIT_ELEMENT);
-        } else {
-            $userData = $userData->paginate(Pagination::LIMIT_ELEMENT);
-        }
+        $userData = $this->userService->all(['profiles']);
+
+        $userData = $this->paginatorService->sortData($request, $column, $userData);
+        $userData = $userData->paginate(Pagination::LIMIT_ELEMENT);
+        $param = $this->paginatorService->getParam($request, $column);
+
         return view('User.User', ['data' => $userData, 'param' => $param]);
     }
 
@@ -51,7 +51,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $companies = Company::all();
+        $companies = Company::pluck('name', 'id');
         return view('User.AddUser', ['companies' => $companies]);
     }
 

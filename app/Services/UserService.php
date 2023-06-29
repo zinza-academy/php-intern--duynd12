@@ -24,7 +24,7 @@ class UserService extends DatabaseService
 
     // insert data 
 
-    public function insertData($data, $request)
+    public function insertData($data)
     {
         try {
             DB::beginTransaction();
@@ -38,7 +38,7 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
-            return redirect()->back()->withInput($request->all());
+            return redirect()->back()->withInput($data);
         }
     }
 
@@ -59,7 +59,6 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
-            logger($e);
             return redirect()->back()->withInput($request->all());
         }
     }

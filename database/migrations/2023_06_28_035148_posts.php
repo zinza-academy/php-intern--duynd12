@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('desciption')->nullable();
             $table->tinyInteger('status');
+            $table->string('slug')->nullable();
             $table->foreignId('topic_id')->constrained('topics')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->softDeletes();

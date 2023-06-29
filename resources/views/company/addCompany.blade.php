@@ -63,10 +63,10 @@
                     </select>
                 </div>
             </div>
+            <button class="bg-sky-500 hover:bg-sky-700 h-10 w-80 text-cyan-50">
+                ADD
+            </button>
         </div>
-        <button class="bg-sky-500 hover:bg-sky-700 h-10 w-80 text-cyan-50">
-            ADD
-        </button>
         </div>
 
     </form>
