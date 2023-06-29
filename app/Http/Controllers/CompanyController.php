@@ -63,7 +63,6 @@ class CompanyController extends Controller
 
             Notify::success('Thêm thành công');
         } catch (Exception $e) {
-            logger($e);
             Notify::error($e->getMessage());
             return back()->withInput($request->input());
         }
