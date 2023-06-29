@@ -11,7 +11,7 @@
                 <div class="pb-4 bg-white dark:bg-gray-900">
                     <label for="table-search" class="sr-only">Search</label>
                     <div class="relative mt-1">
-                        <div class="inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <div class="inset-y-0 left-0 flex items-center pl-3">
                             <button type="submit" id="delete-users-btn" class="mr-2 rounded text-white"
                                 style="background-color:#3CA3DD;height:40px;width:130px;margin-top:15px">
                                 Delete Users
@@ -95,36 +95,6 @@
                     status.style.backgroundColor = 'red';
                 }
             }
-        </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script type="text/javascript">
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            let selectedUserIds = [];
-            $('#delete-users-btn').on('click', function() {
-                var recordIds = [];
-                $('input[name="user_ids[]"]:checked').each(function() {
-                    recordIds.push($(this).val());
-                });
-                if (recordIds.length > 0) {
-                    $.ajax({
-                        url: '{{ route('user.deleteUsers') }}',
-                        type: 'DELETE',
-                        data: {
-                            ids: recordIds,
-
-                        },
-                        success: function(response) {
-                            alert("Users deleted successfully");
-                        },
-                        error: function(xhr) {
-                            alert("Xóa thất bại");
-                        }
-                    });
-                }
-            });
+            var deleteUsersUrl = '{{ route('user.deleteUsers') }}';
         </script>
     @endsection
