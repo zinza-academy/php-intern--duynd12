@@ -70,7 +70,7 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
         //
     }
@@ -78,7 +78,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $data = User::whereId($id)->with(['profiles'])->first();
         $companies = Company::all();
@@ -92,7 +92,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, string $id)
+    public function update(UserRequest $request, int $id)
     {
         $this->userService->updateData($request, $id);
         return back();
@@ -101,7 +101,7 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         try {
             DB::beginTransaction();

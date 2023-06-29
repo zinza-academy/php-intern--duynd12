@@ -72,7 +72,7 @@ class CompanyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(int $id)
     {
         //
     }
@@ -80,7 +80,7 @@ class CompanyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(int $id)
     {
         $companyData = $this->companyService->find($id);
         return view('company.editCompany', ['data' => $companyData]);
@@ -89,7 +89,7 @@ class CompanyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CompanyRequest $request, string $id)
+    public function update(CompanyRequest $request, int $id)
     {
         $data = $request->validated();
         $data = $this->imageService->checkSizeImage($request, 'logo', $data);
@@ -108,7 +108,7 @@ class CompanyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         try {
             $this->companyService->delete($id);

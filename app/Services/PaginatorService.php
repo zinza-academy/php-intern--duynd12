@@ -19,19 +19,6 @@ class PaginatorService
         return $param;
     }
 
-    // get data with paginate
-
-    public function paginate($request, $name, $data)
-    {
-        $param  = $this->getParam($request, $name);
-        if ($param !== null) {
-            $data = $data->orderBy($name, $param)->paginate(Pagination::LIMIT_ELEMENT);
-        } else {
-            $data = $data->paginate(Pagination::LIMIT_ELEMENT);
-        }
-        return $data;
-    }
-
     // sort data
 
     public function sortData($request, $name, $data)

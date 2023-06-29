@@ -91,7 +91,6 @@
             var listStatus = document.querySelectorAll('.status')
             for (let i = 0; i < listStatus.length; i++) {
                 let status = listStatus[i];
-                console.log(status.innerHTML.trim());
                 if (status.innerHTML.trim() !== 'Active') {
                     status.style.backgroundColor = 'red';
                 }
