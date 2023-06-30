@@ -7,8 +7,7 @@
             <label for="table-search" class="sr-only">Search</label>
             <div class="relative mt-1">
                 <div class="inset-y-0 left-0 flex items-center pl-3">
-                    <button type="submit" id="delete-topics-btn" class="mr-2 rounded text-white"
-                        style="background-color:#3CA3DD;height:40px;width:130px;margin-top:15px">
+                    <button type="submit" id="delete-topics-btn" class="mr-2 rounded text-white w-32 mt-4 h-10 bg-customBlue">
                         Delete Topics
                     </button>
                 </div>
@@ -19,14 +18,14 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            <img style="height: 16px;width:16px ;margin-right:10px"
+                            <img class="h-4 w-4 mr-2.5" 
                                 src="{{ URL::asset('images/user.png') }}" alt="">
                             <span class="font-normal">Name</span>
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            <img style="height: 16px;width:16px ;margin-right:10px"
+                            <img class="h-4 w-4 mr-2.5"
                                 src="{{ URL::asset('images/lock.png') }}" alt="">
                             <span class="font-normal">Number of Posts</span>
                         </div>
@@ -50,8 +49,8 @@
                         <td class="w-4 p-4">
                             100
                         </td>
-                        <td class="px-6 py-4" style="height:10px;width:80px">
-                            <img src="{{ URL::asset('images/threedots.png') }}" class="float-right" style="width:20px"
+                        <td class="px-6 py-4 h-2.5 w-20">
+                            <img src="{{ URL::asset('images/threedots.png') }}" class="float-right w-5"
                                 id="dropdownDefaultButton" data-dropdown-toggle="dropdown.{{ $topic->id }}">
                         </td>
                         <x-popup-component name="topics" :id="$topic['id']"></x-popup-component>

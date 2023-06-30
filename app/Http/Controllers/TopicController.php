@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\Pagination;
+use App\Http\Requests\TopicRequest;
 use App\Models\Topic;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
@@ -35,11 +36,12 @@ class TopicController extends Controller
         $data = $request->all();
         try {
             Topic::create($data);
-            Notify::success("Them thanh cong");
+            Notify::success("Thêm thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());
+            return back()->withInput($data);
         }
-        return back()->withInput($request->all());
+        return back();
     }
 
     /**
@@ -61,26 +63,27 @@ class TopicController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(TopicRequest $request, int $id)
     {
-        $data = $request->only('topic_name');
+        $data = $request->validated();
         try {
             Topic::findOrFail($id)->update($data);
-            Notify::success("Sua thanh cong");
+            Notify::success("Sửa thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());
+            return back()->withInput($data);
         }
-        return back()->withInput($request->all());
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(int $id)
     {
         try {
             Topic::findOrFail($id)->delete($id);
-            Notify::success("Xoa thanh cong");
+            Notify::success("Xóa thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());
         }

@@ -10,8 +10,8 @@ export default {
   theme: {
     extend: {
       colors:{
-        'placeholder-color':"red"
-      }
+        customBlue:'#3CA3DD'
+      },
     },
   },
   plugins: [
