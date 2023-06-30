@@ -1,4 +1,4 @@
-<div class="flex justify-between align-center border-2 bg-gradient-to-r from-purple-500 to-pink-500">
+<div class="flex justify-between align-center border-2 bg-gradient-to-r from-customBgFrom to-customBgTo">
     <div>
         <nav class="flex justify-center space-x-4">
             <a href="{{ route('dashboard') }}"
@@ -9,7 +9,7 @@
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Company</a>
             <a href="{{ route('topics.index') }}"
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Topic</a>
-            <a href="/reports"
+            <a href="{{ route('tags.index') }}"
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Tag</a>
             <a href="/reports"
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Post</a>

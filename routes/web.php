@@ -4,6 +4,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TagController;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\UserController;
 use App\Models\Role;
@@ -53,6 +54,8 @@ Route::middleware(['checkLoginUser'])->group(function () {
         Route::resource('companies', CompanyController::class);
         Route::resource('topics', TopicController::class);
         Route::delete('/topics', [TopicController::class, 'deleteTopics'])->name("topic.deleteTopics");
+        Route::resource('tags', TagController::class);
+        Route::delete('/tags', [TagController::class, 'deleteTags'])->name("tag.deleteTags");
     });
 
     //dashboard

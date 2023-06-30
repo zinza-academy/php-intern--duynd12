@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Tag;
 use App\Models\Topic;
+use App\Observers\TagObserver;
 use App\Observers\TopicObserver;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
@@ -24,5 +26,6 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useTailwind();
         Topic::observe(TopicObserver::class);
+        Tag::observe(TagObserver::class);
     }
 }

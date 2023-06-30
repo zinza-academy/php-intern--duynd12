@@ -9,12 +9,14 @@ export default {
   ],
   theme: {
     extend: {
-      colors:{
-        customBlue:'#3CA3DD'
+      colors: {
+        customBlue: '#3CA3DD',
+        customBgFrom: '#D51E36',
+        customBgTo: '#273494'
       },
-      height:{
-        'h801':'801px'
-      }
+      height: {
+        'h801': '801px'
+      },
     },
   },
   plugins: [

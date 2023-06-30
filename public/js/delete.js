@@ -37,3 +37,7 @@ $('#delete-topics-btn').on('click', function () {
 $('#delete-users-btn').on('click', function () {
     deleteItems(deleteUsersUrl, 'input[name="user_ids[]"]', "Người dùng đã được xóa thành công");
 });
+$('#delete-tags-btn').on('click', function () {
+    deleteItems(deleteTagsUrl, 'input[name="tag_ids[]"]', "Các tag đã được xóa thành công");
+});
+
