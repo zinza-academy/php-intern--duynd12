@@ -12,6 +12,9 @@ export default {
       colors:{
         customBlue:'#3CA3DD'
       },
+      height:{
+        'h801':'801px'
+      }
     },
   },
   plugins: [
