@@ -91,6 +91,6 @@ class TagController extends Controller
         $tagIds = $request->input('ids');
         Tag::whereIn('id', $tagIds)->delete();
 
-        return response()->json(['message' => 'Users deleted successfully']);
+        return response()->json(['message' => 'Tags deleted successfully']);
     }
 }
