@@ -2,12 +2,12 @@
 
 namespace App\Listeners;
 
-use App\Events\SendMail;
+use App\Events\RegisterUser;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Mail;
 
-class SendMailNotification
+class SendMailRegisterUser
 {
     /**
      * Create the event listener.
@@ -20,12 +20,12 @@ class SendMailNotification
     /**
      * Handle the event.
      */
-    public function handle(SendMail $event): void
+    public function handle(RegisterUser $event): void
     {
-        $user = $event->user;
-        Mail::send('welcome', ['user' => $user], function ($message) use ($user) {
-            $message->from('duy88706@gmail.com', 'Nguyen dang duy');
-            $message->subject('Welcome to my channel ' . '!');
+        $user = $event->data;
+        Mail::send('infoUser', $user, function ($message) use ($user) {
+            $message->from('duy88706@gmail.com', 'Thông tin tài khoản');
+            $message->subject('Đăng kí tài khoản thành công');
             $message->to($user['email']);
         });
     }

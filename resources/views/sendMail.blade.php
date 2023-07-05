@@ -1,3 +1,1 @@
-{{ $content }}
-
-Thanks<br>
+<span>Chúc mừng sinh nhật bạn</span>

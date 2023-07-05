@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Events\RegisterUser;
+use App\Events\SendMail;
 use App\Models\Profile;
 use App\Models\User;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
 
 class UserService extends DatabaseService
 {
@@ -32,6 +33,7 @@ class UserService extends DatabaseService
             $user = $this->store($data);
             $data['user_id'] = $user->id;
             $this->profileService->store($data);
+            event(new RegisterUser($data));
 
             DB::commit();
             Notify::success('Thêm thành công user');
@@ -47,18 +49,19 @@ class UserService extends DatabaseService
     public function updateData($request, $id)
     {
         $dataProfile = $request->only(['name', 'dob']);
-        $dataUser = $request->only(['role', 'company_id']);
-
+        $dataUser = $request->validated();
         try {
             DB::beginTransaction();
 
-            Profile::where('user_id', $id)->update($dataProfile);
             $this->update($id, $dataUser);
+            Profile::where('user_id', $id)->update($dataProfile);
             DB::commit();
+
             Notify::success("Update thành công");
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
+            logger($e->getMessage());
             return redirect()->back()->withInput($request->all());
         }
     }
