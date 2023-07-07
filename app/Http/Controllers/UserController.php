@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Models\User;
 use App\Constants\Pagination;
-use app\Constants\StatusConstants;
-use App\Http\Requests\UserRequest;
+use App\Constants\RoleConstants;
+use App\Http\Requests\AddUserRequest;
+use App\Http\Requests\EditUserRequest;
 use App\Models\Company;
+use App\Services\LoginService;
 use App\Services\PaginatorService;
 use App\Services\UserService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -51,17 +53,27 @@ class UserController extends Controller
      */
     public function create()
     {
-        $companies = Company::pluck('name', 'id');
+        $userId = Auth::id();
+        if (session('data')['role'] === RoleConstants::ADMINISTRATOR) {
+            $companies = Company::pluck('name', 'id');
+        } else {
+            $data = User::with('companies')->where('id', $userId)->get();
+            $companies = $data->pluck('companies.name', 'companies.id');
+        }
+
         return view('User.AddUser', ['companies' => $companies]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $userRequest)
+    public function store(AddUserRequest $userRequest)
     {
         $payload = $userRequest->all();
         $payload['password'] = Hash::make($payload['password']);
+        if (session('data')['role'] === RoleConstants::COMPANY_ACCOUNT) {
+            $payload['role'] = RoleConstants::MEMBER;
+        }
         $this->userService->insertData($payload, $userRequest);
 
         return back();
@@ -92,7 +104,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, int $id)
+    public function update(EditUserRequest $request, int $id)
     {
         $this->userService->updateData($request, $id);
         return back();

@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class LoginService
@@ -13,15 +13,20 @@ class LoginService
     {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials)) {
-            $user_id = Auth::id();
+            $userId = Auth::id();
+            $dataProfile = Profile::where('user_id', $userId)->first()->toArray();
             Session::put('data', [
-                'id' => $user_id,
-                'email' => $credentials['email']
+                'id' => $userId,
+                'email' => $credentials['email'],
+                'role' => Auth::user()->role,
+                'name' => $dataProfile['name'],
+                'dob' => $dataProfile['dob'],
+                'company_id' => Auth::user()->company_id
             ]);
             return redirect()->to('/');
         } else {
-            Session::flash('message', 'Sai tai khoan hoa mat khau');
-            return Redirect::back();
+            Session::flash('message', 'Sai tài khoản hoặc mật khẩu');
+            return back()->withInput($credentials);
         }
     }
 
@@ -39,7 +44,25 @@ class LoginService
     public function getSessionEmail()
     {
         if (Session::has('data')) {
-            return Session::get('data')['eamil'];
+            return Session::get('data')['email'];
+        }
+    }
+
+    // get name in session 
+
+    public function getSessionName()
+    {
+        if (Session::has('data')) {
+            return Session::get('data')['name'];
+        }
+    }
+
+    // get dob in session 
+
+    public function getSessionDob()
+    {
+        if (Session::has('data')) {
+            return Session::get('data')['dob'];
         }
     }
 }

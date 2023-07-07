@@ -33,10 +33,16 @@
                     <label for="role">Role</label>
                     <select id='role'
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                        name="role_id" placeholder="Dob">
-                        @foreach (App\Constants\RoleConstants::ARRAY_ROLE as $key => $role)
-                            <option value="{{ $key }}">{{ $role }}</option>
-                        @endforeach
+                        name="role" placeholder="Dob">
+
+                        @if (session('data')['role'] === App\Constants\RoleConstants::COMPANY_ACCOUNT)
+                            <option value="{{ App\Constants\RoleConstants::MEMBER }}">
+                                {{ App\Constants\RoleConstants::ARRAY_ROLE[App\Constants\RoleConstants::MEMBER] }}</option>
+                        @else
+                            @foreach (App\Constants\RoleConstants::ARRAY_ROLE as $key => $role)
+                                <option value="{{ $key }}">{{ $role }}</option>
+                            @endforeach
+                        @endif
                     </select>
                 </div>
                 <div class="flex flex-col items-start gap-2 h-20 w-80">

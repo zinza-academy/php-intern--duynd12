@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
-use App\Events\SendMail;
-use App\Listeners\SendMailNotification;
+use App\Events\Birthday;
+use App\Events\RegisterUser;
+use App\Listeners\SendMailBirthdayNotification;
+use App\Listeners\SendMailRegisterUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,8 +22,11 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        SendMail::class => [
-            SendMailNotification::class
+        Birthday::class => [
+            SendMailBirthdayNotification::class
+        ],
+        RegisterUser::class => [
+            SendMailRegisterUser::class
         ]
     ];
 

@@ -34,10 +34,12 @@ Route::middleware(['checkLoginUser'])->group(function () {
             Route::get('/user', 'index')->name("user.index");
             Route::get('/addUser', 'create')->name("user.create");
             Route::post('/addUser', 'store')->name("user.store");
-            Route::get('/user/{id}', 'edit')->name("user.edit");
-            Route::patch('/user/{id}', 'update')->name("user.update");
-            Route::delete('/user/{id}', 'destroy')->name("user.destroy");
-            Route::delete('/users', 'deleteUsers')->name("user.deleteUsers");
+            Route::middleware(['company'])->group(function () {
+                Route::get('/user/{id}', 'edit')->name("user.edit");
+                Route::patch('/user/{id}', 'update')->name("user.update");
+                Route::delete('/user/{id}', 'destroy')->name("user.destroy");
+                Route::delete('/users', 'deleteUsers')->name("user.deleteUsers");
+            });
         });
     });
 
