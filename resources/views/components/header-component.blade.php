@@ -11,7 +11,7 @@
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Topic</a>
             <a href="{{ route('tags.index') }}"
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Tag</a>
-            <a href="/reports"
+            <a href="{{ route('posts.index') }}"
                 class="font-bold px-3 py-2 text-slate-700 rounded-lg hover:bg-slate-100 hover:text-slate-900">Post</a>
         </nav>
     </div>
