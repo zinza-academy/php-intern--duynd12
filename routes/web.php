@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TopicController;
@@ -58,6 +59,19 @@ Route::middleware(['checkLoginUser'])->group(function () {
         Route::delete('/topics', [TopicController::class, 'deleteTopics'])->name("topic.deleteTopics");
         Route::resource('tags', TagController::class);
         Route::delete('/tags', [TagController::class, 'deleteTags'])->name("tag.deleteTags");
+    });
+
+    // post
+
+    Route::controller(PostController::class)->group(function () {
+        Route::get('/posts', 'index')->name('posts.index');
+        Route::get('/posts/create', 'create')->name('posts.create');
+        Route::post('/posts', 'store')->name('posts.store');
+        Route::middleware('post')->group(function () {
+            Route::get('/posts/{post}/edit', 'edit')->name('posts.edit');
+            Route::put('/posts/{post}', 'update')->name('posts.update');
+            Route::delete('posts/{post}', 'destroy')->name('posts.destroy');
+        });
     });
 
     //dashboard
