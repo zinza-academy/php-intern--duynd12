@@ -17,6 +17,9 @@ export default {
       height: {
         'h801': '801px'
       },
+      width: {
+        '635': '635px',
+      }
     },
   },
   plugins: [

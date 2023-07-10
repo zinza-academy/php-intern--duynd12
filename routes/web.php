@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\PostController;
@@ -76,9 +77,12 @@ Route::middleware(['checkLoginUser'])->group(function () {
 
     //dashboard
 
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::controller(DashboardController::class)->group(function () {
+        Route::get('/', 'index')->name('dashboard');
+    });
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
 });
 //login , logout
 Route::controller(LoginController::class)->group(function () {

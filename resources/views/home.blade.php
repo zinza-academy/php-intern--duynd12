@@ -31,7 +31,7 @@
     <x-header-component>
 
     </x-header-component>
-    <div class="container">
+    <div class="container p-8">
         @yield('content')
     </div>
     <div>

@@ -9,9 +9,7 @@ use App\Models\Topic;
 use App\Services\PostService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
 
 class PostController extends Controller
 {

@@ -10,4 +10,9 @@ class Topic extends Model
 {
     use HasFactory, SoftDeletes;
     protected $fillable = ['name', 'slug'];
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'topic_id', 'id');
+    }
 }
