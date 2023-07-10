@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Post;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostService
@@ -13,6 +14,7 @@ class PostService
 
     public function insertData($data)
     {
+        $data['user_id'] = Auth::id();
         try {
             DB::beginTransaction();
             $post = Post::create($data);
@@ -21,6 +23,7 @@ class PostService
             Notify::success('Thêm post thành công');
         } catch (Exception $e) {
             DB::rollBack();
+            logger($e->getMessage());
             Notify::error($e->getMessage());
             return back()->withInput($data);
         }
