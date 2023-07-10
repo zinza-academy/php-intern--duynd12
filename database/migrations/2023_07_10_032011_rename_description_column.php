@@ -15,14 +15,4 @@ return new class extends Migration
             $table->renameColumn('desciption', 'description');
         });
     }
-
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        Schema::table('posts', function (Blueprint $table) {
-            //
-        });
-    }
 };
