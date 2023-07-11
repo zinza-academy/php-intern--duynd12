@@ -2,6 +2,7 @@
 
 namespace app\Constants;
 
-class Pagination {
-    CONST LIMIT_ELEMENT = 10;
+class Pagination
+{
+    const LIMIT_ELEMENT = 10;
 }

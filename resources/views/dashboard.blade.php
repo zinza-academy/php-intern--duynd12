@@ -27,22 +27,31 @@
                     </td>
                     <td class="w-4 p-4">
                         <span class="font-normal">Comments</span>
-                        <span class="font-bold text-black">{{ $comments[$topic->id] }}</span>
-                    </td>
-                    <td class="px-6 py-4 flex mr-10">
-                        <img src="https://vapa.vn/wp-content/uploads/2022/12/anh-3d-thien-nhien.jpeg"
-                            class="h-12 w-12 rounded-full" alt="">
-                        <div class="ml-2">
-                            <h6 class="font-bold text-black">{{ $topic->posts[count($topic->posts) - 1]->title }}</h6>
-                            <span class="font-normal"
-                                style='color:#C2C2C2'>{{ $topic->posts[count($topic->posts) - 1]->created_at }}</span>
-                        </div>
+                        <span class="font-bold text-black">{{ $comments[$topic->id]['comments'] }}</span>
+                        <span class="font-bold text-black">{{ $comments[$topic->id]['pins'] }}</span>
 
                     </td>
+                    @if (count($topic->posts) > 0)
+                        <td class="px-6 py-4 flex mr-10">
+                            <img src="https://vapa.vn/wp-content/uploads/2022/12/anh-3d-thien-nhien.jpeg"
+                                class="h-12 w-12 rounded-full" alt=""
+                                data-tooltip-target="tooltip-no-arrow.{{ $topic->posts[count($topic->posts) - 1]->user_id }}">
+                            <span
+                                class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
+                                id="tooltip-no-arrow.{{ $topic->posts[count($topic->posts) - 1]->user_id }}"
+                                role="tooltip">{{ $users[$topic->posts[count($topic->posts) - 1]->user_id] }}</span>
+                            <div class="ml-2">
+                                <h6 class="font-bold text-black">{{ $topic->posts[count($topic->posts) - 1]->title }}</h6>
+                                <span class="font-normal"
+                                    style='color:#C2C2C2'>{{ $topic->posts[count($topic->posts) - 1]->created_at }}</span>
+                            </div>
+
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             @foreach ($data as $topic)
-                <x-list-topic-component :topic="$topic"></x-list-topic-component>
+                <x-list-topic-component :topic="$topic" :user="$users" :comment="$comments"></x-list-topic-component>
             @endforeach
             <div class="mt-4">
                 @foreach ($data as $topic)

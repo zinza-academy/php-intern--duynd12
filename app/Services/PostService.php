@@ -2,10 +2,12 @@
 
 namespace App\Services;
 
+use App\Constants\StatusConstants;
 use App\Models\Post;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 
 class PostService
@@ -19,6 +21,7 @@ class PostService
             DB::beginTransaction();
             $post = Post::create($data);
             $post->tags()->attach($data['tags']);
+            Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
             DB::commit();
             Notify::success('Thêm post thành công');
         } catch (Exception $e) {

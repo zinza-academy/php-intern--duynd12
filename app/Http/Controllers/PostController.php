@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\StatusConstants;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use App\Models\Tag;
@@ -9,7 +10,7 @@ use App\Models\Topic;
 use App\Services\PostService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
-
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -93,6 +94,8 @@ class PostController extends Controller
             $post = Post::findOrFail($id);
             $post->delete();
             $post->tags()->detach();
+            Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
+
             Notify::success("Xóa thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());

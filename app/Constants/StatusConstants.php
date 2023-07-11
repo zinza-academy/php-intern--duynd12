@@ -20,4 +20,8 @@ class StatusConstants
         '1' => 'solve',
         '2' => 'reject_by_admin_or_company_acc'
     ];
+
+    const PIN = 1;
+    const LIMIT_ELEMENT = 6;
+    const KEY_CACHE_TOPIC = 'topics';
 }

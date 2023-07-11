@@ -2,75 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Topic;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
+use App\Constants\StatusConstants;
+use App\Models\User;
+use App\Services\CommentService;
+use App\Services\TopicService;
+use App\Services\UserService;
+use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
+    public $topicService;
+    public $userService;
+    public $commentService;
+
+    //create function construct 
+
+    public function __construct(TopicService $topicService, UserService $userService, CommentService $commentService)
+    {
+        $this->userService = $userService;
+        $this->topicService  = $topicService;
+        $this->commentService = $commentService;
+    }
+
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $data = Topic::with(['posts.comments'])->get();
-        // dd($data->toArray());
-        $comments = [];
-        foreach ($data as $topic) {
-            $totalComments = $topic->posts->sum(function ($post) {
-                return $post->comments->count();
-            });
-            $comments[$topic->id] = $totalComments;
+        if (Cache::has(StatusConstants::KEY_CACHE_TOPIC)) {
+            $topics = Cache::get(StatusConstants::KEY_CACHE_TOPIC);
+        } else {
+            $topics = $this->topicService->getAllTopics();
+            Cache::put(StatusConstants::KEY_CACHE_TOPIC, $topics);
         }
+        $users = User::with('profiles')->get();
+        $users = $users->pluck('profiles.name', 'profiles.user_id');
+        $comments = $this->commentService->getComments($topics);
 
-        return view('dashboard', ['data' => $data, 'comments' => $comments]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return view(
+            'dashboard',
+            [
+                'data' => $topics,
+                'comments' => $comments,
+                'users' => $users
+            ]
+        );
     }
 }

@@ -188,7 +188,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'Notify' => Helmesvs\Notify\Facades\Notify::class,
         // 'Breadcrumbs' =>  DaveJamesMiller\Breadcrumbs\Facade::class
-        "Breadcrumbs" => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class 
+        "Breadcrumbs" => DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs::class
     ])->toArray(),
 
 ];

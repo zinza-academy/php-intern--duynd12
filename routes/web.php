@@ -80,9 +80,10 @@ Route::middleware(['checkLoginUser'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
-    // Route::get('/', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
+
+    Route::get('/topicdetail/{id}', function ($id) {
+        return "Page Topic Detail " . $id;
+    })->name('topic.detail');
 });
 //login , logout
 Route::controller(LoginController::class)->group(function () {

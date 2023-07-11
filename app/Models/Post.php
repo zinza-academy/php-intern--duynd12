@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Post extends Model
 {
     use HasFactory, SoftDeletes;
-    protected $fillable = ['title', 'topic_id', 'description', 'status', 'user_id', 'slug'];
+    protected $fillable = ['title', 'topic_id', 'description', 'status', 'user_id', 'slug', 'pin'];
 
     public function tags()
     {
