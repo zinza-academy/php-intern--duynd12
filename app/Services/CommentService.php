@@ -10,13 +10,11 @@ class CommentService
     {
         $comments = [];
         foreach ($topics as $topic) {
-            $totalPin = $topic->posts->sum(function ($post) {
-                return $post->pin === \App\Constants\StatusConstants::PIN;
-            });
+
             $totalComments = $topic->posts->sum(function ($post) {
                 return $post->comments->count();
             });
-            $comments[$topic->id] = ['comments' => $totalComments, 'pins' => $totalPin];
+            $comments[$topic->id] = ['comments' => $totalComments];
         }
         return $comments;
     }

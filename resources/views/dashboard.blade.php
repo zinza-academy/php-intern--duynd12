@@ -28,8 +28,6 @@
                     <td class="w-4 p-4">
                         <span class="font-normal">Comments</span>
                         <span class="font-bold text-black">{{ $comments[$topic->id]['comments'] }}</span>
-                        <span class="font-bold text-black">{{ $comments[$topic->id]['pins'] }}</span>
-
                     </td>
                     @if (count($topic->posts) > 0)
                         <td class="px-6 py-4 flex mr-10">
