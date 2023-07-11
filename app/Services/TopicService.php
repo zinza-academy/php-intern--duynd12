@@ -25,8 +25,6 @@ class TopicService extends DatabaseService
                 ->take(\App\Constants\StatusConstants::LIMIT_ELEMENT);
         }])
             ->get();
-
-        logger($topics->toArray());
         return $topics;
     }
 }
