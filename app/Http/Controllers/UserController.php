@@ -42,7 +42,7 @@ class UserController extends Controller
         $userData = $this->userService->all(['profiles']);
 
         $userData = $this->paginatorService->sortData($request, $column, $userData);
-        $userData = $userData->paginate(Pagination::LIMIT_ELEMENT);
+        $userData = $userData->paginate(Pagination::LIMIT_RECORD);
         $param = $this->paginatorService->getParam($request, $column);
 
         return view('User.User', ['data' => $userData, 'param' => $param]);

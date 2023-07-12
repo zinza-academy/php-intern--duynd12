@@ -15,10 +15,9 @@ use Illuminate\Support\Facades\Cache;
 class PostController extends Controller
 {
 
-    public $postService;
+    private $postService;
 
     //create function construct
-
     public function  __construct(PostService $postService)
     {
         $this->postService = $postService;
@@ -29,7 +28,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::with(['tags', 'users.profiles'])->get();
+        $data = Post::with(['tags', 'user.profiles'])->get();
         return view('posts.post', ['data' => $data]);
     }
 

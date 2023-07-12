@@ -16,7 +16,7 @@ class TagController extends Controller
      */
     public function index()
     {
-        $data = Tag::paginate(Pagination::LIMIT_ELEMENT);
+        $data = Tag::paginate(Pagination::LIMIT_RECORD);
         return view('tags.tag', ['data' => $data]);
     }
 

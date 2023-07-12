@@ -37,7 +37,7 @@ class CompanyController extends Controller
         $data = $this->companyService->all(['users.profiles']);
 
         $data = $this->paginatorService->sortData($request, $column, $data);
-        $data = $data->paginate(Pagination::LIMIT_ELEMENT);
+        $data = $data->paginate(Pagination::LIMIT_RECORD);
         $param = $this->paginatorService->getParam($request, $column);
 
         return view('company.Company', ['data' => $data, 'param' => $param]);

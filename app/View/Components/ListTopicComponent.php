@@ -9,16 +9,15 @@ use Illuminate\View\Component;
 class ListTopicComponent extends Component
 {
     public $topic;
-    public $user;
-    public $comment;
+    public $users;
+
     /**
      * Create a new component instance.
      */
-    public function __construct($topic, $user, $comment)
+    public function __construct($topic, $users)
     {
         $this->topic = $topic;
-        $this->user = $user;
-        $this->comment = $comment;
+        $this->users = $users;
     }
 
     /**

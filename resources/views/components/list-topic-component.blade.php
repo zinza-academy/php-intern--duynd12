@@ -8,11 +8,10 @@
                     </div>
                 </th>
                 <th scope="col" class="px-6 py-3 w-full">
-                    <a href="{{ route('topic.detail', $topic->id) }}" class="text-white font-medium text-sm">Read
+                    <a href="{{ route('topics.show', $topic->id) }}" class="text-white font-medium text-sm">Read
                         More</a>
                 </th>
             </tr>
-
         </thead>
         <tbody class="rounded">
             @foreach ($topic->posts as $key => $post)
@@ -24,7 +23,7 @@
                             {!! $post->description !!}</span>
                     </td>
                     <td>
-                        @if ($post->pin === \App\Constants\StatusConstants::PIN)
+                        @if ($post->isPin())
                             <img src="{{ asset('images/pin.png') }}" class="h-6 w-6" alt="">
                         @endif
                     </td>
@@ -38,12 +37,11 @@
                             alt=""data-tooltip-target="tooltip-no-arrow.{{ $post->id }}">
                         <span
                             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-                            id="tooltip-no-arrow.{{ $post->id }}" role="tooltip">{{ $user[$post->user_id] }}</span>
+                            id="tooltip-no-arrow.{{ $post->id }}" role="tooltip">{{ $users[$post->user_id] }}</span>
                         <div class="ml-2">
                             <h6 class="font-bold text-black">{{ $post->title }}</h6>
                             <span class="font-normal" style='color:#C2C2C2'>{{ $post->created_at }}</span>
                         </div>
-
                     </td>
                 </tr>
             @endforeach

@@ -11,14 +11,11 @@ use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
-    const TIME_CACHE_MINUTE = 30;
-
-    public $topicService;
-    public $userService;
-    public $commentService;
+    private $topicService;
+    private $userService;
+    private $commentService;
 
     //create function construct 
-
     public function __construct(TopicService $topicService, UserService $userService, CommentService $commentService)
     {
         $this->userService = $userService;
@@ -29,24 +26,19 @@ class DashboardController extends Controller
     /**
      * Display a listing of the resource.
      */
-
     public function index()
     {
-        if (Cache::has(StatusConstants::KEY_CACHE_TOPIC)) {
-            $topics = Cache::get(StatusConstants::KEY_CACHE_TOPIC);
-        } else {
-            $topics = $this->topicService->getAllTopics();
-            Cache::put(StatusConstants::KEY_CACHE_TOPIC, $topics, now()->addMinutes(self::TIME_CACHE_MINUTE));
-        }
+        $topics = Cache::remember(StatusConstants::KEY_CACHE_TOPIC, StatusConstants::TIME_CACHE_MINUTE, function () {
+            return $this->topicService->getAllTopics();
+        });
         $users = User::with('profiles')->get();
         $users = $users->pluck('profiles.name', 'profiles.user_id');
-        $comments = $this->commentService->getComments($topics);
+        $this->commentService->getComments($topics);
 
         return view(
             'dashboard',
             [
-                'data' => $topics,
-                'comments' => $comments,
+                'topics' => $topics,
                 'users' => $users
             ]
         );

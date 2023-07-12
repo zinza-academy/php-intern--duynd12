@@ -81,9 +81,9 @@ Route::middleware(['checkLoginUser'])->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
 
-    Route::get('/topicdetail/{id}', function ($id) {
+    Route::get('/topics/{id}', function ($id) {
         return "Page Topic Detail " . $id;
-    })->name('topic.detail');
+    })->name('topics.show');
 });
 //login , logout
 Route::controller(LoginController::class)->group(function () {

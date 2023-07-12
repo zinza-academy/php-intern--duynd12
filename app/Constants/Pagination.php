@@ -4,5 +4,5 @@ namespace app\Constants;
 
 class Pagination
 {
-    const LIMIT_ELEMENT = 10;
+    const LIMIT_RECORD = 10;
 }

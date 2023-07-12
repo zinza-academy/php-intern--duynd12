@@ -16,7 +16,7 @@ class TopicController extends Controller
      */
     public function index()
     {
-        $data = Topic::paginate(Pagination::LIMIT_ELEMENT);
+        $data = Topic::paginate(Pagination::LIMIT_RECORD);
         return view('topics.topic', ['data' => $data]);
     }
 

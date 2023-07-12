@@ -41,6 +41,7 @@ class PostService
             $post = Post::findOrFail($id);
             $post->update($data);
             $post->tags()->sync($data['tags']);
+            Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
 
             DB::commit();
             Notify::success('Sửa post thành công');

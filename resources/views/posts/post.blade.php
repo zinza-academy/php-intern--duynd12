@@ -39,7 +39,7 @@
                         {{ $post->title }}
                     </td>
                     <td class="w-4 p-4">
-                        {{ $post->users->profiles->name }}
+                        {{ $post->user->profiles->name }}
                     </td>
                     <td class="w-4 p-4">
                         {{ \App\Constants\StatusConstants::STATUS_POST[$post->status] }}

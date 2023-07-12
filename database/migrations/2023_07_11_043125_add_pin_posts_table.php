@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('posts', function (Blueprint $table) {
-            $table->tinyInteger('pin')->default(0)->comment('1:true,0:false');
+            $table->boolean('pin')->default(false);
         });
     }
 };
