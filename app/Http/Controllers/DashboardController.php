@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Cache;
 
 class DashboardController extends Controller
 {
+    const TIME_CACHE_MINUTE = 30;
+
     public $topicService;
     public $userService;
     public $commentService;
@@ -34,7 +36,7 @@ class DashboardController extends Controller
             $topics = Cache::get(StatusConstants::KEY_CACHE_TOPIC);
         } else {
             $topics = $this->topicService->getAllTopics();
-            Cache::put(StatusConstants::KEY_CACHE_TOPIC, $topics);
+            Cache::put(StatusConstants::KEY_CACHE_TOPIC, $topics, now()->addMinutes(self::TIME_CACHE_MINUTE));
         }
         $users = User::with('profiles')->get();
         $users = $users->pluck('profiles.name', 'profiles.user_id');
