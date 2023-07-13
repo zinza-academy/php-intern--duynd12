@@ -33,14 +33,11 @@ class DashboardController extends Controller
         });
         $users = User::with('profiles')->get();
         $users = $users->pluck('profiles.name', 'profiles.user_id');
-        $this->commentService->getComments($topics);
+        $this->commentService->setAttributeTopic($topics);
 
         return view(
             'dashboard',
-            [
-                'topics' => $topics,
-                'users' => $users
-            ]
+            compact('topics', 'users')
         );
     }
 }
