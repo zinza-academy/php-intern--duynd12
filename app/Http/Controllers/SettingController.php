@@ -13,10 +13,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
 
-class SettingController extends Controller {
-    protected $loginService;
-    protected $imageService;
-    protected $settingService;
+class SettingController extends Controller
+{
+    private $loginService;
+    private $imageService;
+    private $settingService;
     private $id;
 
     //ham khoi tao 
@@ -35,7 +36,7 @@ class SettingController extends Controller {
     public function index()
     {
         $this->id = $this->loginService->getSessionId();
-        $data = User::with('profiles')->find($this->id);
+        $data = User::with('profile')->find($this->id);
         return view('setting', [
             'data' => $data,
             'breadcrumbs' => ['Home', 'Setting']

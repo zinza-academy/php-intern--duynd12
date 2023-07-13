@@ -17,6 +17,7 @@ class TagController extends Controller
     public function index()
     {
         $data = Tag::paginate(Pagination::LIMIT_RECORD);
+
         return view('tags.tag', ['data' => $data]);
     }
 
@@ -41,6 +42,7 @@ class TagController extends Controller
             Notify::error($e->getMessage());
             return back()->withInput($data);
         }
+
         return back();
     }
 
@@ -50,6 +52,7 @@ class TagController extends Controller
     public function edit(int $id)
     {
         $data = Tag::findOrFail($id);
+
         return view('tags.editTag', ['data' => $data]);
     }
 
@@ -64,8 +67,10 @@ class TagController extends Controller
             Notify::success("Sửa thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());
+
             return back()->withInput($data);
         }
+
         return back();
     }
 
@@ -80,6 +85,7 @@ class TagController extends Controller
         } catch (Exception $e) {
             Notify::error($e->getMessage());
         }
+
         return back();
     }
 

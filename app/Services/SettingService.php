@@ -90,6 +90,7 @@ class SettingService
         } else {
             $boolean = Hash::check($oldPassword, $password);
         }
+
         return [$boolean, $data];
     }
 }

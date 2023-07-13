@@ -40,6 +40,7 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
+
             return redirect()->back()->withInput($data);
         }
     }
@@ -61,7 +62,7 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
-            logger($e->getMessage());
+
             return redirect()->back()->withInput($request->all());
         }
     }

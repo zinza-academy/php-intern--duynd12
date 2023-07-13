@@ -31,8 +31,8 @@ class DashboardController extends Controller
         $topics = Cache::remember(StatusConstants::KEY_CACHE_TOPIC, StatusConstants::TIME_CACHE_MINUTE, function () {
             return $this->topicService->getAllTopics();
         });
-        $users = User::with('profiles')->get();
-        $users = $users->pluck('profiles.name', 'profiles.user_id');
+        $users = User::with('profile')->get();
+        $users = $users->pluck('profile.name', 'profile.user_id');
         $this->commentService->setAttributeTopic($topics);
 
         return view(

@@ -46,14 +46,12 @@ Route::middleware(['checkLoginUser'])->group(function () {
     });
 
     //setting 
-
     Route::controller(SettingController::class)->group(function () {
         Route::post('/setting', 'update')->name("setting.update");
         Route::get('/setting', 'index')->name("setting.store");
     });
 
     // company
-
     Route::middleware(['checkRoleAdmin'])->group(function () {
         Route::resource('companies', CompanyController::class);
         Route::resource('topics', TopicController::class);
@@ -63,7 +61,6 @@ Route::middleware(['checkLoginUser'])->group(function () {
     });
 
     // post
-
     Route::controller(PostController::class)->group(function () {
         Route::get('/posts', 'index')->name('posts.index');
         Route::get('/posts/create', 'create')->name('posts.create');
@@ -76,15 +73,17 @@ Route::middleware(['checkLoginUser'])->group(function () {
     });
 
     //dashboard
-
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
 
-    Route::get('/topics/{id}', function ($id) {
-        return "Page Topic Detail " . $id;
-    })->name('topics.show');
+    Route::get('/topicsDetail/{id}', [TopicController::class, 'show'])->name('topics.show');
+
+    Route::get('/test', function () {
+        return view('topicDetail');
+    });
 });
+
 //login , logout
 Route::controller(LoginController::class)->group(function () {
     Route::get("/login", "index")->name("login.index");

@@ -21,7 +21,7 @@ class StatusConstants
         '2' => 'reject_by_admin_or_company_acc'
     ];
 
-    const LIMIT_RECORD = 6;
+    const LIMIT_RECORD = 5;
     const KEY_CACHE_TOPIC = 'topics';
     const TIME_CACHE_MINUTE = 30;
 }

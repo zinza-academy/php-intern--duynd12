@@ -34,7 +34,7 @@ class CompanyController extends Controller
     {
         $column = 'status';
 
-        $data = $this->companyService->all(['users.profiles']);
+        $data = $this->companyService->all(['users.profile']);
 
         $data = $this->paginatorService->sortData($request, $column, $data);
         $data = $data->paginate(Pagination::LIMIT_RECORD);
@@ -66,6 +66,7 @@ class CompanyController extends Controller
             Notify::error($e->getMessage());
             return back()->withInput($request->input());
         }
+
         return back();
     }
 
@@ -83,6 +84,7 @@ class CompanyController extends Controller
     public function edit(int $id)
     {
         $companyData = $this->companyService->find($id);
+
         return view('company.editCompany', ['data' => $companyData]);
     }
 
@@ -99,6 +101,7 @@ class CompanyController extends Controller
             Notify::success("Sửa thành công");
         } catch (Exception $e) {
             Notify::error($e->getMessage());
+
             return back()->withInput($request->input());
         }
 

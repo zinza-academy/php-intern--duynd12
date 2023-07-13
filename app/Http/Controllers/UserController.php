@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         $column = 'status';
 
-        $userData = $this->userService->all(['profiles']);
+        $userData = $this->userService->all(['profile']);
 
         $userData = $this->paginatorService->sortData($request, $column, $userData);
         $userData = $userData->paginate(Pagination::LIMIT_RECORD);
@@ -57,8 +57,8 @@ class UserController extends Controller
         if (session('data')['role'] === RoleConstants::ADMINISTRATOR) {
             $companies = Company::pluck('name', 'id');
         } else {
-            $data = User::with('companies')->where('id', $userId)->get();
-            $companies = $data->pluck('companies.name', 'companies.id');
+            $data = User::with('company')->where('id', $userId)->get();
+            $companies = $data->pluck('company.name', 'company.id');
         }
 
         return view('User.AddUser', ['companies' => $companies]);
@@ -92,7 +92,7 @@ class UserController extends Controller
      */
     public function edit(int $id)
     {
-        $data = User::whereId($id)->with(['profiles'])->first();
+        $data = User::whereId($id)->with(['profile'])->first();
         $companies = Company::all();
 
         return view('User.EditUser', [
@@ -107,6 +107,7 @@ class UserController extends Controller
     public function update(EditUserRequest $request, int $id)
     {
         $this->userService->updateData($request, $id);
+
         return back();
     }
 

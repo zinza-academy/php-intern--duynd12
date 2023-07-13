@@ -8,17 +8,17 @@
     </td>
     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
         <div class="flex">
-            <img class="h-10 w-10 rounded rounded-full" src="{{ URL::asset($data1->profiles['avatar']) }}"
+            <img class="h-10 w-10 rounded rounded-full" src="{{ URL::asset($data1->profile['avatar']) }}"
                 alt="1234">
             <div class="pl-4">
                 <h1 class="font-medium text-sm decoration-gray-700">
-                    {{ $data1['profiles']['name'] === null ? 'default' : $data1['profiles']['name'] }}</h1>
+                    {{ $data1['profile']['name'] === null ? 'default' : $data1['profile']['name'] }}</h1>
                 <p class="font-thin text-base" style="color:#718096">{{ $data1['email'] }}</p>
             </div>
         </div>
     </th>
     <td class="px-6 py-4">
-        {{ date('d/m/Y', strtotime($data1['profiles']['dob'])) }}
+        {{ date('d/m/Y', strtotime($data1['profile']['dob'])) }}
     </td>
     <td class="px-6 py-4">
         <span class="rounded block status" style="background-color:#42C867;width:80px;text-align:center;color:#ffff">
