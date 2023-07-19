@@ -45,7 +45,7 @@ Route::middleware(['checkLoginUser'])->group(function () {
         });
     });
 
-    //setting 
+    //setting
     Route::controller(SettingController::class)->group(function () {
         Route::post('/setting', 'update')->name("setting.update");
         Route::get('/setting', 'index')->name("setting.store");
@@ -77,8 +77,7 @@ Route::middleware(['checkLoginUser'])->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
 
-    Route::get('/topicsDetail/{id}', [TopicController::class, 'show'])->name('topics.show');
-
+    Route::get('/topics/{id}', [TopicController::class, 'show'])->name('topics.show');
     Route::get('/test', function () {
         return view('topicDetail');
     });

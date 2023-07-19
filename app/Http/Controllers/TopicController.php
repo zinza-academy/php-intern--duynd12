@@ -68,13 +68,11 @@ class TopicController extends Controller
     {
         $keyword = $request->input('keyword');
         $posts = $this->topicService->getSortedPosts($id, $keyword);
-        if (count($posts) > 0) {
-            return view('topicDetail', compact('posts', 'keyword'));
-        } else {
-            $posts = $this->topicService->getSortedPosts($id);
 
-            return view('topicDetail', compact('posts', 'keyword'));
+        if ($posts == null) {
+            abort(404, "Not found");
         }
+        return view('topicDetail', compact('posts', 'keyword'));
     }
 
     /**
@@ -120,7 +118,7 @@ class TopicController extends Controller
         return back();
     }
 
-    // delete many topic 
+    // delete many topic
     public function deleteTopics(Request $request)
     {
 

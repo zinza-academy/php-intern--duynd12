@@ -33,14 +33,12 @@ class CompanyController extends Controller
     public function index(Request $request)
     {
         $column = 'status';
-
-        $data = $this->companyService->all(['users.profile']);
-
-        $data = $this->paginatorService->sortData($request, $column, $data);
-        $data = $data->paginate(Pagination::LIMIT_RECORD);
+        $companies = $this->companyService->all(['users.profile']);
+        $companies = $this->paginatorService->sortData($request, $column, $companies);
+        $companies = $companies->paginate(Pagination::LIMIT_RECORD);
         $param = $this->paginatorService->getParam($request, $column);
 
-        return view('company.Company', ['data' => $data, 'param' => $param]);
+        return view('company.Company', compact('companies', 'param'));
     }
 
     /**
@@ -64,6 +62,7 @@ class CompanyController extends Controller
             Notify::success('Thêm thành công');
         } catch (Exception $e) {
             Notify::error($e->getMessage());
+
             return back()->withInput($request->input());
         }
 
@@ -119,6 +118,7 @@ class CompanyController extends Controller
         } catch (Exception $e) {
             Notify::error($e->getMessage());
         }
+
         return back();
     }
 }

@@ -35,8 +35,10 @@ class TopicService extends DatabaseService
     {
         $query =  $data->{$relation}()
             ->orderBy('pin', 'desc')
-            ->orderBy('created_at', 'desc')
-            ->where('title', 'like', '%' . $keyword . '%');
+            ->orderBy('created_at', 'desc');
+        if ($keyword !== null) {
+            $query = $query->where('title', 'like', '%' . $keyword . '%');
+        }
 
         return $query;
     }
@@ -47,11 +49,11 @@ class TopicService extends DatabaseService
         $topics = Topic::with(['posts.comments'])
             ->where('id', $id)
             ->first();
-        if ($topics == null) {
-            abort(404, 'Not found');
-        } else {
+        if ($topics !== null) {
             $posts = $this->sortDescDataWithSearch($topics, 'posts', $keyword)
                 ->paginate(Pagination::LIMIT_RECORD);
+        } else {
+            return $topics;
         }
 
         return $posts;
