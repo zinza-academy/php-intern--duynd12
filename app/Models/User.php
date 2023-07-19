@@ -46,4 +46,9 @@ class User extends Model implements Authenticatable
     {
         return session('data')['role'] === RoleConstants::MEMBER;
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(Comment::class, 'comment_user');
+    }
 }

@@ -25,15 +25,10 @@ class CommentService
     {
         $checkResolve = in_array(true, $comments);
         $key = array_search(true, $comments);
-        if (!$comments[$commentId]) {
-            Comment::findOrFail($commentId)->update([
-                'resolve' => true,
-            ]);
-        }
+        Comment::findOrFail($commentId)->update([
+            'resolve' => !$comments[$commentId],
+        ]);
         if ($checkResolve) {
-            Comment::findOrFail($commentId)->update([
-                'resolve' => true,
-            ]);
             Comment::findOrFail($key)->update([
                 'resolve' => false,
             ]);
@@ -53,7 +48,7 @@ class CommentService
     {
         if (count($comment['likes']) > 0) {
             foreach ($comment['likes'] as $like) {
-                $array[] = $like->user_id;
+                $array[] = $like->id;
             }
             $comment->setAttribute('user_id_liked', $array);
         }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\CommentUser;
 use App\Models\Like;
 use App\Models\Post;
 use App\Models\User;
 use App\Services\CommentService;
-use Illuminate\Http\Client\Request as ClientRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
@@ -24,7 +24,7 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
         $content = $request->input('content');
         $postId = $request->input('post_id');
@@ -54,19 +54,9 @@ class CommentController extends Controller
     //like or remove like
     public function changeLikeComment(int $id)
     {
-        $record = [
-            'user_id' => Auth::id(),
-            'comment_id' =>  $id
-        ];
-        $likeRecord = Like::where('user_id', Auth::id())
-            ->where('comment_id', $id);
-        if (count($likeRecord->get()) > 0) {
-            $likeRecord->delete();
-            $comment = $this->commentService->getDataAttrComment($id);
-        } else {
-            Like::create($record);
-            $comment = $this->commentService->getDataAttrComment($id);
-        }
+        $user = User::findOrFail(Auth::id());
+        $user->likes()->toggle($id);
+        $comment = $this->commentService->getDataAttrComment($id);
         $totalHeart = count($comment->likes);
         $html = view('components.like-tpl', ['comment' => $comment])->render();
 
