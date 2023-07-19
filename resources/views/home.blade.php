@@ -10,6 +10,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/delete.js') }}" defer></script>
     <script src="{{ asset('js/search.js') }}" defer></script>
+    <script src="{{ asset('js/comment.js') }}" defer></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- editor wysiwyg -->
@@ -30,9 +32,7 @@
 {!! Notify::render() !!}
 
 <body>
-    <x-header-component>
-
-    </x-header-component>
+    <x-header-component></x-header-component>
     <div class="container px-8 pt-8">
         @yield('content')
     </div>

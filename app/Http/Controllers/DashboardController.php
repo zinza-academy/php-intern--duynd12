@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants\StatusConstants;
+use App\Models\Topic;
 use App\Models\User;
 use App\Services\CommentService;
 use App\Services\TopicService;
@@ -15,7 +16,7 @@ class DashboardController extends Controller
     private $userService;
     private $commentService;
 
-    //create function construct 
+    //create function construct
     public function __construct(TopicService $topicService, UserService $userService, CommentService $commentService)
     {
         $this->userService = $userService;

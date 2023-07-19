@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LoginController;
@@ -25,8 +26,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['checkLoginUser'])->group(function () {
+// Route::get('test', [CommentController::class, 'changeStatusResolve']);
 
+Route::middleware(['checkLoginUser'])->group(function () {
+    Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
+    Route::post('comment/like/{comment_id}', [CommentController::class, 'changeLikeComment'])->name('comment.like_action');
+    Route::post('/post/{post_id}/comment/resolve/{comment_id}', [CommentController::class, 'changeStatusResolve'])->name('comment.changeStatusResolve');
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::get("/mail", [MailController::class, "index"])->name("mail.index");
     Route::post("/sendmail", [MailController::class, "sendMail"])->name("mail.sendmail");
 
