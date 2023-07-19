@@ -31,12 +31,10 @@
     <x-header-component>
 
     </x-header-component>
-    <div class="container p-8">
+    <div class="container px-8 pt-8">
         @yield('content')
     </div>
-    <div>
-        footer
-    </div>
+    <x-footer-component></x-footer-component>
     @yield('js')
 </body>
 <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
