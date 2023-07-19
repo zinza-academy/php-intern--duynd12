@@ -10,6 +10,7 @@ use App\Models\Topic;
 use App\Services\PostService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
@@ -79,6 +80,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, int $id)
     {
+        $post = Post::findOrFail($id);
         $data = $request->validated();
         $this->postService->updateData($data, $id);
         return back();
