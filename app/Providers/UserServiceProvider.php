@@ -3,10 +3,12 @@
 namespace App\Providers;
 
 use App\Models\User;
+use App\ViewComposers\UserComposer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
-class UserComposerServiceProvider extends ServiceProvider
+class UserServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -21,10 +23,6 @@ class UserComposerServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        view()->composer(['components.comment-tpl', 'posts.postDetail'], function ($view) {
-            $user = User::with(['profiles', 'companies'])
-                ->findOrFail(Auth::id());
-            $view->with(['user' => $user]);
-        });
+        View::composer(['components.comment-tpl', 'posts.post_detail'], UserComposer::class);
     }
 }

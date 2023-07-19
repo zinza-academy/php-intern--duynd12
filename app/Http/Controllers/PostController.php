@@ -79,7 +79,7 @@ class PostController extends Controller
             $this->commentService->setAttrComment($comment);
         }
 
-        return view('posts.postDetail', compact('post', 'comments'));
+        return view('posts.post_detail', compact('post', 'comments'));
     }
 
     /**

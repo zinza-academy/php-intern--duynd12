@@ -27,15 +27,15 @@ class CommentService
         $key = array_search(true, $comments);
         if (!$comments[$commentId]) {
             Comment::findOrFail($commentId)->update([
-                'resolve' => true
+                'resolve' => true,
             ]);
         }
         if ($checkResolve) {
             Comment::findOrFail($commentId)->update([
-                'resolve' => true
+                'resolve' => true,
             ]);
             Comment::findOrFail($key)->update([
-                'resolve' => false
+                'resolve' => false,
             ]);
         }
     }
