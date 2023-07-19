@@ -47,8 +47,7 @@ class TopicService extends DatabaseService
     public function getSortedPosts($id, $keyword = null)
     {
         $topics = Topic::with(['posts.comments'])
-            ->where('id', $id)
-            ->first();
+            ->findOrFail($id);
         if ($topics !== null) {
             $posts = $this->sortDescDataWithSearch($topics, 'posts', $keyword)
                 ->paginate(Pagination::LIMIT_RECORD);

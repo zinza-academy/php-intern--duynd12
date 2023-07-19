@@ -45,7 +45,7 @@
                                     @if (count($company->users) > 0)
                                         <div class="flex">
                                             <img class="h-10 w-10"
-                                                src="{{ $company['users'][0]['profile']['avatar'] !== null ? URL::asset($company['users'][0]['profile']['avatar']) : asset('.images/image 6.png') }}"
+                                                src="{{ $company['users'][0]['profile']['avatar'] !== null ? URL::asset($company['users'][0]['profile']['avatar']) : asset('/images/image 6.png') }}"
                                                 alt="Error">
                                             <div class="pl-4">
                                                 <h1 class="font-medium text-sm decoration-gray-700">

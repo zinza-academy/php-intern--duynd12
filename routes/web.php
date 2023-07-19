@@ -78,9 +78,6 @@ Route::middleware(['checkLoginUser'])->group(function () {
     });
 
     Route::get('/topics/{id}', [TopicController::class, 'show'])->name('topics.show');
-    Route::get('/test', function () {
-        return view('topicDetail');
-    });
 });
 
 //login , logout

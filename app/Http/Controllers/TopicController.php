@@ -72,7 +72,7 @@ class TopicController extends Controller
         if ($posts == null) {
             abort(404, "Not found");
         }
-        return view('topicDetail', compact('posts', 'keyword'));
+        return view('topics.topic_detail', compact('posts', 'keyword'));
     }
 
     /**
