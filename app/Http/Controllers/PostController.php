@@ -28,7 +28,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $data = Post::with(['tags', 'user.profiles'])->get();
+        $data = Post::with(['tags', 'user.profile'])->get();
+
         return view('posts.post', ['data' => $data]);
     }
 
@@ -39,6 +40,7 @@ class PostController extends Controller
     {
         $topics = Topic::pluck('name', 'id');
         $tags = Tag::pluck('name', 'id');
+
         return view('posts.addPost', [
             'topics' => $topics,
             'tags' => $tags
@@ -52,6 +54,7 @@ class PostController extends Controller
     {
         $data = $request->validated();
         $this->postService->insertData($data);
+
         return back();
     }
 
@@ -71,6 +74,7 @@ class PostController extends Controller
         $data = Post::with('tags')->findOrFail($id);
         $topics = Topic::pluck('name', 'id');
         $tags = Tag::pluck('name', 'id');
+
         return view('posts.editPost', ['data' => $data, 'topics' => $topics, 'tags' => $tags]);
     }
 
@@ -81,6 +85,7 @@ class PostController extends Controller
     {
         $data = $request->validated();
         $this->postService->updateData($data, $id);
+
         return back();
     }
 
@@ -99,6 +104,7 @@ class PostController extends Controller
         } catch (Exception $e) {
             Notify::error($e->getMessage());
         }
+
         return back();
     }
 }

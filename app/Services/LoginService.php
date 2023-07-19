@@ -23,9 +23,11 @@ class LoginService
                 'dob' => $dataProfile['dob'],
                 'company_id' => Auth::user()->company_id
             ]);
+
             return redirect()->to('/');
         } else {
             Session::flash('message', 'Sai tài khoản hoặc mật khẩu');
+
             return back()->withInput($credentials);
         }
     }

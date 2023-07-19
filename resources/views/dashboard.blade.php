@@ -12,7 +12,6 @@
                     </div>
                 </th>
             </tr>
-
         </thead>
         <tbody class="rounded">
             @foreach ($topics as $topic)
@@ -50,9 +49,9 @@
             @foreach ($topics as $topic)
                 <x-list-topic-component :topic="$topic" :users="$users"></x-list-topic-component>
             @endforeach
-            <div class="mt-4">
+            <div class="mt-4 w-full h-12 pl-2 flex items-center" style="background-color: #e5e6ec">
                 @foreach ($topics as $topic)
-                    <span>{{ $topic->name }}</span>
+                    <span class="mr-2">{{ $topic->name }}</span>
                 @endforeach
             </div>
         </tbody>

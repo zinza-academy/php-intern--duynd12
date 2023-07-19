@@ -18,15 +18,13 @@
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            <img class="h-4 w-4 mr-2.5" 
-                                src="{{ URL::asset('images/user.png') }}" alt="">
+                            <img class="h-4 w-4 mr-2.5" src="{{ URL::asset('images/user.png') }}" alt="">
                             <span class="font-normal">Name</span>
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
-                            <img class="h-4 w-4 mr-2.5"
-                                src="{{ URL::asset('images/lock.png') }}" alt="">
+                            <img class="h-4 w-4 mr-2.5" src="{{ URL::asset('images/lock.png') }}" alt="">
                             <span class="font-normal">Number of Posts</span>
                         </div>
                     </th>

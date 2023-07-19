@@ -16,12 +16,14 @@
         </nav>
     </div>
     <div class="p-2 flex justify-center items-center">
-        <input
-            class="border-2 rounded-md py-1 mr-5
+        <form action="" method="GET">
+            <input
+                class="border-2 rounded-md py-1 mr-5
             pl-3 focus:outline-none
             bg-white 
             focus:border-sky-500 focus:ring-sky-500"
-            name="email" placeholder="Search ....." />
+                name="keyword" placeholder="Search ....." id="search" name="search" />
+        </form>
         <img type="button" id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
             src="{{ URL::asset('/images/image 6.png') }}" class="w-8 h-8 mr-2" alt="">
         <div id="dropdown"

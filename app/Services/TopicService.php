@@ -2,8 +2,11 @@
 
 namespace App\Services;
 
+use App\Constants\Pagination;
 use App\Constants\StatusConstants;
 use App\Models\Topic;
+use BadMethodCallException;
+use Exception;
 
 class TopicService extends DatabaseService
 {
@@ -25,5 +28,33 @@ class TopicService extends DatabaseService
             ->get();
 
         return $topics;
+    }
+
+    //oder by theo pin , created_at with search
+    public function sortDescDataWithSearch($data, $relation, $keyword = null)
+    {
+        $query =  $data->{$relation}()
+            ->orderBy('pin', 'desc')
+            ->orderBy('created_at', 'desc');
+        if ($keyword !== null) {
+            $query = $query->where('title', 'like', '%' . $keyword . '%');
+        }
+
+        return $query;
+    }
+
+    // get sortData posts
+    public function getSortedPosts($id, $keyword = null)
+    {
+        $topics = Topic::with(['posts.comments'])
+            ->findOrFail($id);
+        if ($topics !== null) {
+            $posts = $this->sortDescDataWithSearch($topics, 'posts', $keyword)
+                ->paginate(Pagination::LIMIT_RECORD);
+        } else {
+            return $topics;
+        }
+
+        return $posts;
     }
 }

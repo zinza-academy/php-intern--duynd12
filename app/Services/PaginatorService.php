@@ -27,6 +27,7 @@ class PaginatorService
         if ($param !== null) {
             $data = $data->orderBy($name, $param);
         }
+
         return $data;
     }
 }

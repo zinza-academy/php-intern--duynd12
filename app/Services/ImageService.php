@@ -41,6 +41,7 @@ class ImageService
 
             $data[$name] = $image_name;
         }
+
         return $data;
     }
 }

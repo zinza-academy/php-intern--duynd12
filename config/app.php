@@ -170,7 +170,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Helmesvs\Notify\NotifyServiceProvider::class,
         // DaveJamesMiller\Breadcrumbs\ServiceProvider::class
-        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class
+        DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
+        App\Providers\PostServiceProvider::class
     ])->toArray(),
 
     /*

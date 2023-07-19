@@ -7,8 +7,8 @@
         <div class="pt-3 pr-0.5 pb-3 pl-6 flex flex-col items-start gap-5  left-0 top-20" style="width: 1444px;height:952px">
             <h1 class="font-semibold mb-5">Account info</h1>
             <div class="flex items-end">
-                @if ($data->profiles['avatar'] !== null)
-                    <img src="{{ URL::asset($data->profiles['avatar']) }}" alt="" id="avatar"
+                @if ($data->profile['avatar'] !== null)
+                    <img src="{{ URL::asset($data->profile['avatar']) }}" alt="" id="avatar"
                         class="w-24 h-24 rounded-full bg-center">
                 @else
                     <img src="{{ URL::asset('images/image 6.png') }}" alt="" id="avatar"
@@ -23,7 +23,7 @@
             <div class="flex items-end flex-row h-20 gap-2 " style="width: 650px">
                 <div class="flex flex-col items-start gap-2 h-20 w-80">
                     <label for="">Name</label>
-                    <input value="{{ old('name') ? old('name') : $data->profiles['name'] }}" id="name"
+                    <input value="{{ old('name') ? old('name') : $data->profile['name'] }}" id="name"
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="name" placeholder="Name" />
                     @error('name')
@@ -69,7 +69,7 @@
             <div class="flex items-end flex-row h-20 gap-2 " style="width: 980px">
                 <div class="flex flex-col items-start gap-2 h-20 w-80">
                     <label for="">Dob</label>
-                    <input value="{{ old('dob') ? old('dob') : $data->profiles['dob'] }}" type="date"
+                    <input value="{{ old('dob') ? old('dob') : $data->profile['dob'] }}" type="date"
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="dob" placeholder="Dob" />
                 </div>
