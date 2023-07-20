@@ -70,8 +70,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($data as $data1)
-                            <x-view-component :data1="$data1"></x-view-component>
+                        @foreach ($data as $user)
+                            <x-view-component :user="$user"></x-view-component>
                         @endforeach
                     </tbody>
                 </table>

@@ -38,9 +38,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $column = 'status';
-
         $userData = $this->userService->all(['profile']);
-
         $userData = $this->paginatorService->sortData($request, $column, $userData);
         $userData = $userData->paginate(Pagination::LIMIT_RECORD);
         $param = $this->paginatorService->getParam($request, $column);
@@ -131,11 +129,9 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
-    // delete many user 
-
+    // delete many user
     public function deleteUsers(Request $request)
     {
-
         $userIds = $request->input('ids');
         User::whereIn('id', $userIds)->delete();
 

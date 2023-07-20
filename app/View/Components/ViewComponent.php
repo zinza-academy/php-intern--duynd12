@@ -8,13 +8,13 @@ use Illuminate\View\Component;
 
 class ViewComponent extends Component
 {
-    public $data1;
+    public $user;
     /**
      * Create a new component instance.
      */
-    public function __construct($data1)
+    public function __construct($user)
     {
-        $this->data1 = $data1;
+        $this->user = $user;
     }
 
     /**
