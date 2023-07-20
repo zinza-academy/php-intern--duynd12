@@ -1,4 +1,4 @@
-<div class="bg-[#f1f1f1] px-8 py-8">
+<div class="bg-[#f1f1f1] px-8 py-8 mt-20">
     <div class="flex w-full justify-between mb-4 border-b-2 rounded-sm items-center">
         <div class="flex w-[232px] flex-col items-start gap-2">
             <h1 class="text-sm font-bold">Tinh Tế</h1>
