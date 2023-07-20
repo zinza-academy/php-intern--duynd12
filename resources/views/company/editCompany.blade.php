@@ -1,6 +1,7 @@
 @extends('home')
 
 @section('content')
+    <x-header-title-component title="Edit Company"></x-header-title-component>
     <form action="{{ route('companies.update', $data['id']) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

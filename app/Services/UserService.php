@@ -12,19 +12,16 @@ use Illuminate\Support\Facades\DB;
 
 class UserService extends DatabaseService
 {
-
     private $profileService;
 
     // create constructor
-
     public function __construct(User $model, ProfileService $profileService)
     {
         parent::__construct($model);
         $this->profileService = $profileService;
     }
 
-    // insert data 
-
+    // insert data
     public function insertData($data)
     {
         try {
@@ -40,12 +37,12 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
+
             return redirect()->back()->withInput($data);
         }
     }
 
-    // update data 
-
+    // update data
     public function updateData($request, $id)
     {
         $dataProfile = $request->only(['name', 'dob']);
@@ -61,7 +58,7 @@ class UserService extends DatabaseService
         } catch (Exception $e) {
             DB::rollBack();
             Notify::error($e->getMessage());
-            logger($e->getMessage());
+
             return redirect()->back()->withInput($request->all());
         }
     }

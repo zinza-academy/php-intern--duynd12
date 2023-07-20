@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <h1>Edit Post</h1>
+    <x-header-title-component title="Edit Post" :route="route('posts.index')"></x-header-title-component>
     <form action="{{ route('posts.update', $data->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
@@ -28,8 +28,6 @@
                         {{ $data->description }}
                     </textarea>
                 </div>
-            </div>
-            <div class="flex flex-col items-start gap-2 h-20 w-80">
             </div>
             <div class="flex items-end flex-row h-20 gap-8">
                 <div class="flex flex-col items-start gap-2 h-20 w-80">
@@ -71,6 +69,9 @@
                     </select>
                 </div>
             </div>
+            @error('tags')
+                <span id="msg_name" class="text-red-600 block">{{ $message }}</span>
+            @enderror
             <button class="bg-sky-500 hover:bg-sky-700 h-10 w-80 text-cyan-50">
                 Edit
             </button>

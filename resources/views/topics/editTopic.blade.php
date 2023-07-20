@@ -1,8 +1,7 @@
 @extends('home')
 
 @section('content')
-    <h1>Page Edit</h1>
-    <h1>Create Topic</h1>
+    <x-header-title-component title="Edit Topic" :route="route('topics.index')"></x-header-title-component>
     <form action="{{ route('topics.update', $data->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')

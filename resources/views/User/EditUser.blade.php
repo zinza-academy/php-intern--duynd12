@@ -4,7 +4,7 @@
 @endpush
 
 @section('content')
-    <h1>Page Edit </h1>
+    <x-header-title-component title="Edit User" :route="route('user.index')"></x-header-title-component>
     <form action="{{ route('user.update', $data->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PATCH')

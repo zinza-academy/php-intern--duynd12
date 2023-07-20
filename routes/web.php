@@ -45,7 +45,7 @@ Route::middleware(['checkLoginUser'])->group(function () {
         });
     });
 
-    //setting 
+    //setting
 
     Route::controller(SettingController::class)->group(function () {
         Route::post('/setting', 'update')->name("setting.update");

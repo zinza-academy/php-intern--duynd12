@@ -28,7 +28,7 @@ class AddUserRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'required|email|unique:users|max:255',
             'password' => 'required|string',
-            'dob' => 'required|date',
+            'dob' => 'required|date|before:today',
             'role' => 'nullable|int|between:1,3',
             'company_id' => 'nullable|int'
         ];

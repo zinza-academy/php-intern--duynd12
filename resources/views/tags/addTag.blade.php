@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-    <h1>Create Tag</h1>
+    <x-header-title-component title="Create Tag" :route="route('tags.index')"></x-header-title-component>
     <form action="{{ route('tags.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="pt-3 pr-0.5 pb-3 pl-6 flex flex-col items-start gap-5  left-0 top-20">
