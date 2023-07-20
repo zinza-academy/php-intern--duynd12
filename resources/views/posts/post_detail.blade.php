@@ -77,7 +77,7 @@
                                     @endif
                                 </div>
                                 <div class="iconResolve"
-                                    data-url="{{ route('comment.changeStatusResolve', ['post_id' => $post->id, 'comment_id' => $comment->id]) }}">
+                                    data-url="{{ route('comment.changeStatusResolve', ['comment_id' => $comment->id]) }}">
                                     @if ($comment->isResolve())
                                         <img src="{{ asset('images/resolved.png') }}" alt="123">
                                     @else

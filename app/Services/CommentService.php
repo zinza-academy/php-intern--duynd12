@@ -21,18 +21,17 @@ class CommentService
     }
 
     //handle logic change status resolve
-    public function handleChangeStatus($comments, $commentId)
+    public function handleChangeStatus($commentId)
     {
-        $checkResolve = in_array(true, $comments);
-        $key = array_search(true, $comments);
-        Comment::findOrFail($commentId)->update([
-            'resolve' => !$comments[$commentId],
-        ]);
-        if ($checkResolve) {
-            Comment::findOrFail($key)->update([
-                'resolve' => false,
+        Comment::whereNotIn('id', [$commentId])
+            ->where('resolve', true)
+            ->update([
+                'resolve' => false
             ]);
-        }
+        $comment = Comment::findOrFail($commentId);
+        $comment->update([
+            'resolve' => !$comment->resolve
+        ]);
     }
 
     //getDataAttribute for comment
