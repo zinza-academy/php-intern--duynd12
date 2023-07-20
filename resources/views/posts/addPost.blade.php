@@ -2,7 +2,7 @@
 
 
 @section('content')
-    <h1>Create Post</h1>
+    <x-header-title-component title="Create Topic" :route="route('posts.index')"></x-header-title-component>
     <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="pt-3 pr-0.5 pb-3 pl-6 flex flex-col items-start gap-5  left-0 top-20">
@@ -25,9 +25,6 @@
                         class="block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                         placeholder="Write an article..." name="description" id="description"></textarea>
                 </div>
-            </div>
-
-            <div class="flex flex-col items-start gap-2 h-20 w-80">
             </div>
             <div class="flex items-end flex-row h-20 gap-8">
                 <div class="flex flex-col items-start gap-2 h-20 w-80">
@@ -66,6 +63,9 @@
                     </select>
                 </div>
             </div>
+            @error('tags')
+                <span id="msg_name" class="text-red-600 block">{{ $message }}</span>
+            @enderror
             <button class="bg-sky-500 hover:bg-sky-700 h-10 w-80 text-cyan-50">
                 ADD
             </button>

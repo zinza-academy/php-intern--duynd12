@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-    <h1>Create Topic</h1>
+    <x-header-title-component title="Create Topic" :route="route('topics.index')"></x-header-title-component>
     <form action="{{ route('topics.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="pt-3 pr-0.5 pb-3 pl-6 flex flex-col items-start gap-5  left-0 top-20">

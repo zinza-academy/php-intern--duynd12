@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-    <h1>Edit Tag</h1>
+    <x-header-title-component title="Edit Tag" :route="route('tags.index')"></x-header-title-component>
     <form action="{{ route('tags.update', $data->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
