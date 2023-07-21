@@ -43,9 +43,6 @@ class CommentController extends Controller
     // change status resolve
     public function changeStatusResolve(int $commentId)
     {
-        // $post = Post::with(['comments'])
-        //     ->findOrFail($postId);
-        // $comments = $post->comments->pluck('id');
         $this->commentService->handleChangeStatus($commentId);
 
         return response()->json(['status' => 'ok']);
