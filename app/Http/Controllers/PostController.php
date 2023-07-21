@@ -2,26 +2,33 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Pagination;
 use App\Constants\StatusConstants;
 use App\Http\Requests\PostRequest;
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Topic;
+use App\Models\User;
+use App\Services\CommentService;
 use App\Services\PostService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
-
     private $postService;
+    private $commentService;
 
     //create function construct
-    public function  __construct(PostService $postService)
+    public function  __construct(PostService $postService, CommentService $commentService)
     {
         $this->postService = $postService;
+        $this->commentService = $commentService;
     }
 
     /**
@@ -64,7 +71,15 @@ class PostController extends Controller
      */
     public function show(int $id)
     {
-        //
+        $post = Post::with(['comments.likes', 'tags', 'user.company'])
+            ->findOrFail($id);
+        $comments = $post->comments()->with(['user.profile', 'user.company'])
+            ->paginate(Pagination::LIMIT_RECORD);
+        foreach ($comments as $key => $comment) {
+            $this->commentService->setAttrComment($comment);
+        }
+
+        return view('posts.post_detail', compact('post', 'comments'));
     }
 
     /**

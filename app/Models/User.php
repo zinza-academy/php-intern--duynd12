@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Constants\RoleConstants;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
@@ -26,5 +27,28 @@ class User extends Model implements Authenticatable
     public function company()
     {
         return $this->belongsTo(Company::class, 'company_id', 'id');
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == RoleConstants::ADMINISTRATOR;
+    }
+
+    public function isCompanyAccount()
+    {
+        if (session('data')['company_id'] == $this->company_id && !$this->isMember()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function isMember()
+    {
+        return session('data')['role'] === RoleConstants::MEMBER;
+    }
+
+    public function likes()
+    {
+        return $this->belongsToMany(Comment::class, 'comment_user');
     }
 }
