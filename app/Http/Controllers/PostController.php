@@ -71,9 +71,9 @@ class PostController extends Controller
      */
     public function show(int $id)
     {
-        $post = Post::with(['comments.likes', 'tags', 'user.companies'])
+        $post = Post::with(['comments.likes', 'tags', 'user.company'])
             ->findOrFail($id);
-        $comments = $post->comments()->with(['user.profiles', 'user.companies'])
+        $comments = $post->comments()->with(['user.profile', 'user.company'])
             ->paginate(Pagination::LIMIT_RECORD);
         foreach ($comments as $key => $comment) {
             $this->commentService->setAttrComment($comment);

@@ -32,8 +32,8 @@
                 <div class="w-full gap-3 bg-[#F1F1F1] p-2 flex h-[270px] mb-3">
                     <div class="flex flex-col justify-center items-center w-[180px] border-2 bg-[#fff]">
                         <img src="{{ asset('images/image 6.png') }}" class="w-20 h-20 rounded-full" alt="">
-                        <span class="font-bold">{{ $comment->user->profiles->name }}</span>
-                        <span>{{ $comment->user->companies->name ?? '' }}</span>
+                        <span class="font-bold">{{ $comment->user->profile->name }}</span>
+                        <span>{{ $comment->user->company->name ?? '' }}</span>
                     </div>
                     <div class="flex-1 relative grid grid-flow-row bg-[#fff] p-2">
                         <div class="flex items-center">

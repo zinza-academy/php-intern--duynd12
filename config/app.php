@@ -172,7 +172,7 @@ return [
         // DaveJamesMiller\Breadcrumbs\ServiceProvider::class
         DaveJamesMiller\Breadcrumbs\BreadcrumbsServiceProvider::class,
         App\Providers\PostServiceProvider::class,
-        App\Providers\UserComposerServiceProvider::class
+        App\Providers\UserServiceProvider::class
     ])->toArray(),
 
     /*

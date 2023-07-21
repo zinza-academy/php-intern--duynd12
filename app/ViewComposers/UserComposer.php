@@ -13,7 +13,7 @@ class UserComposer
      */
     public function compose(View $view): void
     {
-        $user = User::with(['profiles', 'companies'])
+        $user = User::with(['profile', 'company'])
             ->findOrFail(Auth::id());
         $view->with(['user' => $user]);
     }
