@@ -84,6 +84,9 @@ Route::middleware(['checkLoginUser'])->group(function () {
     });
 
     Route::get('/topics/{id}', [TopicController::class, 'show'])->name('topics.show');
+    Route::middleware(['checkRoleAdmin'])->group(function () {
+        Route::post('post/changeStatusPin/{post_id}', [PostController::class, 'changeStatusPin'])->name('post.changeStatusPin');
+    });
 });
 
 //login , logout

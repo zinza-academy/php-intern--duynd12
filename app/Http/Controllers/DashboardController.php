@@ -30,7 +30,7 @@ class DashboardController extends Controller
     public function index()
     {
         $topics = Cache::remember(StatusConstants::KEY_CACHE_TOPIC, StatusConstants::TIME_CACHE_MINUTE, function () {
-            return $this->topicService->getAllTopics();
+            return $this->topicService->getRelationshipWithTopics()->get();
         });
         $users = User::with('profile')->get();
         $users = $users->pluck('profile.name', 'profile.user_id');

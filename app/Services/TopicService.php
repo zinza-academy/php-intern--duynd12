@@ -17,15 +17,14 @@ class TopicService extends DatabaseService
     }
 
     // get all topic with relation comment , posts , return data sort created_at
-    public function getAllTopics()
+    public function getRelationshipWithTopics()
     {
         $topics = Topic::with(['posts' => function ($query) {
             $query->with('comments')
                 ->orderBy('posts.pin', 'desc')
                 ->orderBy('posts.created_at', 'desc')
                 ->take(\App\Constants\StatusConstants::LIMIT_RECORD);
-        }])
-            ->get();
+        }]);
 
         return $topics;
     }

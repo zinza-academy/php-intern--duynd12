@@ -57,3 +57,19 @@
         </tbody>
     </table>
 @endsection
+@section('js')
+    <script type="text/javascript">
+        $(document).on('click', '.pinIcon', function() {
+            var url = $(this).data('url');
+            let element = $(this);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function(data) {
+                    element.parents('.posts').replaceWith(data.content);
+                },
+                error: function(xhr) {}
+            })
+        })
+    </script>
+@endsection
