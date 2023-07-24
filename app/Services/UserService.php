@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\Constants\StatusConstants;
 use App\Events\RegisterUser;
-use App\Events\SendMail;
 use App\Models\Company;
 use App\Models\Profile;
 use App\Models\User;
@@ -80,7 +80,7 @@ class UserService extends DatabaseService
         $company = Company::with(['users'])
             ->findOrFail($data['company_id']);
         $maxUsers = $company->max_users;
-        if (count($company->users) + 1 > $maxUsers) {
+        if (count($company->users) + StatusConstants::ONE  > $maxUsers) {
             return false;
         }
 
