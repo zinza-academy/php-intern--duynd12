@@ -20,7 +20,6 @@ class SettingService
     private $fieldsToRemove = ['oldPassword', 'confirmPassword', 'password'];
 
     // create constructor
-
     public function __construct(LoginService $loginService, UserService $userService, ImageService $imageService)
     {
         $this->loginService = $loginService;
@@ -30,7 +29,6 @@ class SettingService
 
     public function update($request)
     {
-
         $data = $request->all();
         unset($data['email']);
         $id = $this->loginService->getSessionId();
@@ -61,15 +59,17 @@ class SettingService
                 return redirect()->back()->withInput($request->all());
             }
 
-            // Profile::where('user_id','=',$id)->update($data);
-            // $userData->Profiles()->updateOrCreate($data);
+            $dataProfile = [
+                'name' => $data['name'],
+                'dob' => $data['dob'],
+            ];
+            if (isset($data['avatar'])) {
+                $dataProfile['avatar'] = $data['avatar'];
+            }
+
             DB::table('profiles')
                 ->where('user_id', $id)
-                ->update([
-                    'name' => $data['name'],
-                    'dob' => $data['dob'],
-                    'avatar' => $data['avatar']
-                ]);
+                ->update($dataProfile);
             DB::commit();
             Notify::success("Update thành công");
         } catch (Exception $e) {
@@ -79,7 +79,6 @@ class SettingService
     }
 
     //check type password
-
     public function TypedPassword($oldPassword, $password, $data)
     {
         $boolean = false;

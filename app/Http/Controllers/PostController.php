@@ -5,19 +5,16 @@ namespace App\Http\Controllers;
 use App\Constants\Pagination;
 use App\Constants\StatusConstants;
 use App\Http\Requests\PostRequest;
-use App\Models\Comment;
-use App\Models\Like;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\Topic;
-use App\Models\User;
 use App\Services\CommentService;
+use App\Services\PaginatorService;
 use App\Services\PostService;
 use App\Services\TopicService;
+use Illuminate\Http\Request;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
@@ -25,23 +22,30 @@ class PostController extends Controller
     private $topicService;
     private $postService;
     private $commentService;
+    private $paginatorService;
 
     //create function construct
-    public function  __construct(PostService $postService, TopicService $topicService, CommentService $commentService)
+    public function  __construct(PostService $postService, CommentService $commentService, TopicService $topicService, PaginatorService $paginatorService)
     {
         $this->postService = $postService;
         $this->commentService = $commentService;
         $this->topicService = $topicService;
+        $this->paginatorService = $paginatorService;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Post::with(['tags', 'user.profile'])->get();
+        $column = 'status';
+        $data = Post::with(['tags', 'user.profile', 'comments'])
+            ->withTrashed();
+        $data = $this->paginatorService->sortData($request, $column, $data);
+        $data = $data->paginate(Pagination::LIMIT_RECORD);
+        $param = $this->paginatorService->getParam($request, $column);
 
-        return view('posts.post', ['data' => $data]);
+        return view('posts.post', ['data' => $data, 'param' => $param]);
     }
 
     /**
@@ -117,6 +121,9 @@ class PostController extends Controller
         try {
             $post = Post::findOrFail($id);
             $post->delete();
+            $post->update([
+                'status' =>  StatusConstants::DELETE_BY_ADMIN_OR_COMPANY_ACCOUNT
+            ]);
             $post->tags()->detach();
             Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
 

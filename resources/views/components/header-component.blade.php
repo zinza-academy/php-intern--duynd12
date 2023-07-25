@@ -20,12 +20,13 @@
             <input
                 class="border-2 rounded-md py-1 mr-5
             pl-3 focus:outline-none
-            bg-white 
+            bg-white
             focus:border-sky-500 focus:ring-sky-500"
                 name="keyword" placeholder="Search ....." id="search" name="search" />
         </form>
         <img type="button" id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-            src="{{ URL::asset('/images/image 6.png') }}" class="w-8 h-8 mr-2" alt="">
+            src="{{ $user->profile->avatar !== null ? URL::asset($user->profile->avatar) : URL::asset('/images/image 6.png') }}"
+            class="w-8 h-8 mr-2 rounded-full" alt="">
         <div id="dropdown"
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
             <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">

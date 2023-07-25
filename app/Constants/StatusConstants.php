@@ -16,10 +16,14 @@ class StatusConstants
     ];
 
     const STATUS_POST = [
-        '0' => 'problem',
-        '1' => 'solve',
-        '2' => 'reject_by_admin_or_company_acc'
+        '0' => 'Not Resolve',
+        '1' => 'Resolve',
+        '2' => 'Delete by admin/company_account'
     ];
+
+    const DELETE_BY_ADMIN_OR_COMPANY_ACCOUNT = 2;
+    const RESOLVE = 1;
+    const NOT_RESOLVE = 0;
 
     const LIMIT_RECORD = 5;
     const KEY_CACHE_TOPIC = 'topics';

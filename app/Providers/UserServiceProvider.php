@@ -23,6 +23,6 @@ class UserServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer(['components.comment-tpl', 'posts.post_detail'], UserComposer::class);
+        View::composer(['components.comment-tpl', 'posts.post_detail', 'components.header-component'], UserComposer::class);
     }
 }

@@ -5,7 +5,7 @@
         <x-title-component name="companies"></x-title-component>
         <div class="w-full" style="height: 801px">
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <table class="border-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
@@ -33,6 +33,10 @@
                                     <img style="height: 16px;width:16px ;margin-right:10px"
                                         src="{{ URL::asset('images/lock.png') }}" alt="">
                                     <span class="font-normal">Number of users</span>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                <div class="flex items-center">
                                 </div>
                             </th>
                         </tr>

@@ -28,4 +28,9 @@ class Comment extends Model
     {
         return $this->resolve == true;
     }
+
+    public function scopeHasResolvedComment($query)
+    {
+        return $query->where('resolve', true);
+    }
 }

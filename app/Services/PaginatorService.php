@@ -8,19 +8,16 @@ class PaginatorService
 {
     const ARRAY = ['desc', 'asc'];
 
-    // get query param 
-
+    // get query param
     public function getParam($request, $name)
     {
         $param = $request->query($name);
-
-        $param = in_array($param, self::ARRAY) ? $param : 'desc';
+        $param = in_array($param, self::ARRAY) ? $param : 'asc';
 
         return $param;
     }
 
     // sort data
-
     public function sortData($request, $name, $data)
     {
         $param = $this->getParam($request, $name);

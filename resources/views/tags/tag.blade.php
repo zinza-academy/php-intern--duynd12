@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="border-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -28,23 +28,29 @@
                             <span class="font-normal">Number of Posts</span>
                         </div>
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($data as $tag)
                     <tr
-                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 h-28">
+                        class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 h-28 rounded">
                         <td class="w-4 p-4">
                             <div class="flex items-center list-input">
                                 <input name="tag_ids[]" value="{{ $tag->id }}" id="{{ $tag->id }}" type="checkbox"
                                     class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                                 <label for="{{ $tag->id }}" class="sr-only">checkbox</label>
-                                {{ $tag->name }}
+                                <span class="text-gray-700">
+                                    {{ $tag->name }}
+                                </span>
                             </div>
                         </td>
-
                         <td class="w-4 p-4">
-                            100
+                            {{ count($tag->posts) }}
                         </td>
                         <td class="px-6 py-4 h-2.5 w-20">
                             <img src="{{ URL::asset('images/threedots.png') }}" class="float-right w-5"

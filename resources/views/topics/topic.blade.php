@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table class="border-2 w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
@@ -26,6 +26,10 @@
                         <div class="flex items-center">
                             <img class="h-4 w-4 mr-2.5" src="{{ URL::asset('images/lock.png') }}" alt="">
                             <span class="font-normal">Number of Posts</span>
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
                         </div>
                     </th>
                 </tr>
@@ -45,7 +49,7 @@
                         </td>
 
                         <td class="w-4 p-4">
-                            100
+                            {{ count($topic->posts) }}
                         </td>
                         <td class="px-6 py-4 h-2.5 w-20">
                             <img src="{{ URL::asset('images/threedots.png') }}" class="float-right w-5"

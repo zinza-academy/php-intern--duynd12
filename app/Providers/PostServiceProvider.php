@@ -23,6 +23,6 @@ class PostServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        View::composer('topics.topic_detail', PostComposer::class);
+        View::composer(['topics.topic_detail', 'dashboard'], PostComposer::class);
     }
 }

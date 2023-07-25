@@ -20,8 +20,7 @@ class SettingController extends Controller
     private $settingService;
     private $id;
 
-    //ham khoi tao 
-
+    //ham khoi tao
     public function __construct(LoginService $loginService, ImageService $imageService, SettingService $settingService)
     {
         $this->loginService = $loginService;
@@ -32,7 +31,6 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
-
     public function index()
     {
         $this->id = $this->loginService->getSessionId();
