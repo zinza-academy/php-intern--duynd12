@@ -3,8 +3,7 @@
         <tr class="bg-white border-2 border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20 post">
             <td class="w-full p-4">
                 <span class="text-lg font-bold text-black ">{{ $post->title }}</span>
-                <span
-                    class="text-sm block text-black w-24 overflow-hidden text-ellipsis whitespace-nowrap truncate line-clamp-1">
+                <span class="text-sm text-black overflow-hidden text-ellipsis whitespace-nowrap truncate line-clamp-1">
                     {!! $post->description !!}...</span>
             </td>
             @if (auth()->user()->role == \App\Constants\RoleConstants::ADMINISTRATOR)
