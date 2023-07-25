@@ -56,7 +56,7 @@
                         <span class="font-bold text-black text-lg block">{{ $post->title }}</span>
                         <span class="text-black text-sm font-normal">{!! $post->description !!}</span>
                         <span style="color:#c2c2c2" class="text-sm block my-2">{{ $post->created_at }}</span>
-                        <img src="{{ $post->user->profile->avatar !== null ? URL::asset($post->user->profile->avatar) : asset('images/image 6.png') }}"
+                        <img src="{{ $post->user->profile->avatar ? URL::asset($post->user->profile->avatar) : asset('images/image 6.png') }}"
                             alt="" class="h-10 w-10 rounded-full mt-2">
                     </div>
                 @endforeach

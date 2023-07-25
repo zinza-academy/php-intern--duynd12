@@ -80,7 +80,7 @@ class UserService extends DatabaseService
         $company = Company::with(['users'])
             ->findOrFail($data['company_id']);
         $maxUsers = $company->max_users;
-        if (count($company->users) + StatusConstants::ONE  > $maxUsers) {
+        if (count($company->users) + 1 > $maxUsers) {
             return false;
         }
 

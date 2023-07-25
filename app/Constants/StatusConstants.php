@@ -24,7 +24,6 @@ class StatusConstants
     const DELETE_BY_ADMIN_OR_COMPANY_ACCOUNT = 2;
     const RESOLVE = 1;
     const NOT_RESOLVE = 0;
-    const ONE = 1;
 
     const LIMIT_RECORD = 5;
     const KEY_CACHE_TOPIC = 'topics';

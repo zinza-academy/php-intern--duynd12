@@ -25,7 +25,7 @@
                 name="keyword" placeholder="Search ....." id="search" name="search" />
         </form>
         <img type="button" id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
-            src="{{ $user->profile->avatar !== null ? URL::asset($user->profile->avatar) : URL::asset('/images/image 6.png') }}"
+            src="{{ $user->profile->avatar ? URL::asset($user->profile->avatar) : URL::asset('/images/image 6.png') }}"
             class="w-8 h-8 mr-2 rounded-full" alt="">
         <div id="dropdown"
             class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
