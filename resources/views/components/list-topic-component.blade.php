@@ -13,20 +13,24 @@
                 </th>
             </tr>
         </thead>
-        <tbody class="rounded">
+        <tbody class="rounded posts">
             @foreach ($topic->posts as $key => $post)
-                <tr class="bg-white border-2 border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20">
+                <tr class="bg-white border-2 border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20 post">
                     <td class="w-1/2 p-4">
                         <span class="text-lg font-bold text-black ">{{ $post->title }}</span>
                         <span
                             class="text-sm block text-black block w-24 overflow-hidden text-ellipsis whitespace-nowrap">
                             {!! $post->description !!}</span>
                     </td>
-                    <td>
-                        @if ($post->isPin())
-                            <img src="{{ asset('images/pin.png') }}" class="h-6 w-6" alt="">
-                        @endif
-                    </td>
+                    @if (auth()->user()->role == \App\Constants\RoleConstants::ADMINISTRATOR)
+                        <td class="pinIcon" data-url="{{ route('post.changeStatusPin', $post->id) }}">
+                            @if ($post->pin)
+                                <img src="{{ asset('images/pin.png') }}" class="h-6 w-6" alt="">
+                            @else
+                                <img src="{{ asset('images/push-pin.png') }}" class="h-6 w-6" alt="">
+                            @endif
+                        </td>
+                    @endif
                     <td class="w-4 p-4">
                         <span class="font-normal">Comments</span>
                         <span class="font-bold text-black">{{ count($post->comments) }}</span>

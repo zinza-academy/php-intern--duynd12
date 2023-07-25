@@ -13,6 +13,7 @@ use App\Models\Topic;
 use App\Models\User;
 use App\Services\CommentService;
 use App\Services\PostService;
+use App\Services\TopicService;
 use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Http\Request;
@@ -21,14 +22,16 @@ use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
+    private $topicService;
     private $postService;
     private $commentService;
 
     //create function construct
-    public function  __construct(PostService $postService, CommentService $commentService)
+    public function  __construct(PostService $postService, TopicService $topicService, CommentService $commentService)
     {
         $this->postService = $postService;
         $this->commentService = $commentService;
+        $this->topicService = $topicService;
     }
 
     /**
@@ -123,5 +126,24 @@ class PostController extends Controller
         }
 
         return back();
+    }
+
+    // change status pin
+    public function changeStatusPin(int $postId)
+    {
+        Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
+        $post = Post::findOrFail($postId);
+        $post->update([
+            'pin' => !$post->pin
+        ]);
+        $topics = $this->topicService->getRelationshipWithTopics()
+            ->where('id', $post->topic_id)
+            ->first();
+        $html = view('components.pin-tpl', ['topics' => $topics])->render();
+
+        return response()->json([
+            'success' => 'ok',
+            'content' => $html
+        ]);
     }
 }
