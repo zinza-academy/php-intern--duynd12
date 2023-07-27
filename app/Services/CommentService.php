@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Constants\StatusConstants;
 use App\Models\Comment;
+use App\Models\Post;
 use App\Models\Topic;
 
 class CommentService
@@ -32,6 +34,16 @@ class CommentService
         $comment->update([
             'resolve' => !$comment->resolve
         ]);
+        $post = Post::findOrFail($comment->post_id);
+        if ($post->comments()->hasResolvedComment()->exists()) {
+            $post->update([
+                'status' => StatusConstants::RESOLVE
+            ]);
+        } else {
+            $post->update([
+                'status' => StatusConstants::NOT_RESOLVE
+            ]);
+        }
     }
 
     //getDataAttribute for comment

@@ -1,7 +1,7 @@
 @extends('home')
 
 @section('content')
-    <x-header-title-component title="Create Company"></x-header-title-component>
+    <x-header-title-component title="Create Company" :route="route('companies.index')"></x-header-title-component>
     <form action="{{ route('companies.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="pt-3 pr-0.5 pb-3 pl-6 flex flex-col items-start gap-5  left-0 top-20" style="width: 1444px;height:952px">

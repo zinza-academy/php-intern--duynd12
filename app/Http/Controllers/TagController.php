@@ -16,7 +16,8 @@ class TagController extends Controller
      */
     public function index()
     {
-        $data = Tag::paginate(Pagination::LIMIT_RECORD);
+        $data = Tag::with(['posts'])
+            ->paginate(Pagination::LIMIT_RECORD);
 
         return view('tags.tag', ['data' => $data]);
     }
@@ -89,8 +90,7 @@ class TagController extends Controller
         return back();
     }
 
-    // delete many tag 
-
+    // delete many tag
     public function deleteTags(Request $request)
     {
 

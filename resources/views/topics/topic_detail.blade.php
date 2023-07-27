@@ -4,10 +4,12 @@
     @if (count($posts) > 0)
         <h1 class="title mb-2 font-bold text-lg">Topic {{ $posts[0]->topic_id }}</h1>
         <div class="flex">
-            <div class="" style='width:1300px'>
+            <div class="w-[1300px]">
                 @if (count($posts) > 0)
                     @foreach ($posts as $post)
-                        <div class="p-4 flex items-center bg-white border-2 border-indigo-400 border-x-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20"
+                        <div class="p-4
+                flex items-center bg-white border-2 border-indigo-400 border-x-indigo-400 hover:bg-gray-50
+                dark:hover:bg-gray-600 h-20"
                             style='width:1300px'>
                             <div class="w-681 flex justify-between items-center">
                                 <div>
@@ -34,6 +36,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="float-right ml-16">
+                                <a href="{{ route('posts.show', $post->id) }}" class="text-blue-600">Xem chi tiết</a>
+                            </div>
                         </div>
                     @endforeach
                     @if ($posts instanceof \Illuminate\Pagination\LengthAwarePaginator)
@@ -51,7 +56,7 @@
                         <span class="font-bold text-black text-lg block">{{ $post->title }}</span>
                         <span class="text-black text-sm font-normal">{!! $post->description !!}</span>
                         <span style="color:#c2c2c2" class="text-sm block my-2">{{ $post->created_at }}</span>
-                        <img src="{{ $post->user->profile->avatar !== null ? $post->user->profile->avatar : asset('images/image 6.png') }}"
+                        <img src="{{ $post->user->profile->avatar ? URL::asset($post->user->profile->avatar) : asset('images/image 6.png') }}"
                             alt="" class="h-10 w-10 rounded-full mt-2">
                     </div>
                 @endforeach

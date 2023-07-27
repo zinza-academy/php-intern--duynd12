@@ -22,10 +22,10 @@ class UserController extends Controller
 {
     private $userService;
     private $paginatorService;
+
     /*
         create function construct
     */
-
     public function __construct(UserService $userService, PaginatorService $paginatorService)
     {
         $this->userService = $userService;

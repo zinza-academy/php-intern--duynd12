@@ -29,9 +29,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Styles -->
 </head>
+
 {!! Notify::render() !!}
 
-<body>
+<body class="mt-[-26px]">
     <x-header-component></x-header-component>
     <div class="container px-8 pt-8">
         @yield('content')

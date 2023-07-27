@@ -25,10 +25,10 @@ class SettingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'confirmPassword' => 'same:password',
+            'confirmPassword' => 'nullable|same:password',
             'dob' => 'required|date',
             'name' => 'required|string',
-            'avatar' => 'mimes:jpeg,png,jgp|max:1024',
+            'avatar' => 'nullable|mimes:jpeg,png,jgp|max:1024',
         ];
     }
 }

@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Constants\StatusConstants;
+use App\Models\Comment;
 use App\Models\Topic;
 use App\Models\User;
 use App\Services\CommentService;
 use App\Services\TopicService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -35,10 +37,15 @@ class DashboardController extends Controller
         $users = User::with('profile')->get();
         $users = $users->pluck('profile.name', 'profile.user_id');
         $this->commentService->setAttributeTopic($topics);
+        $topUsers = Comment::with('user.profile')
+            ->where('resolve', true)
+            ->groupBy('user_id')
+            ->select('user_id', DB::raw('COUNT(resolve) as resolve_count'))
+            ->get();
 
         return view(
             'dashboard',
-            compact('topics', 'users')
+            compact('topics', 'users', 'topUsers')
         );
     }
 }

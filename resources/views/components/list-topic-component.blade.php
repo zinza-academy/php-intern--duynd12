@@ -1,26 +1,32 @@
-    <table class="mt-7 w-full text-sm text-left text-gray-500 dark:text-gray-400">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
             style="background-color:#5C7099">
-            <tr class='w-2 rounded-md '>
-                <th scope="col" class="px-6 py-3 w-full">
+            <tr class=''>
+                <th scope="col" class="px-6 py-3">
                     <div class="flex items-center">
                         <span class="text-white font-medium text-lg">{{ $topic->name }}</span>
                     </div>
                 </th>
-                <th scope="col" class="px-6 py-3 w-full">
-                    <a href="{{ route('topics.show', $topic->id) }}" class="text-white font-medium text-sm">Read
-                        More</a>
+                <th scope="col" class="px-6 py-3">
+                    <div class="flex items-center">
+                    </div>
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    <div class="flex items-center">
+                    </div>
+                </th>
+                <th scope="col" class="float-right px-6 py-4">
+                    <a href="{{ route('topics.show', $topic->id) }}" class="text-white">Read More</a>
                 </th>
             </tr>
         </thead>
         <tbody class="rounded posts">
             @foreach ($topic->posts as $key => $post)
-                <tr class="bg-white border-2 border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20 post">
-                    <td class="w-1/2 p-4">
+                <tr class="bg-white border-2 border-indigo-400 hover:bg-gray-50 dark:hover:bg-gray-600 h-20">
+                    <td class="w-full p-4">
                         <span class="text-lg font-bold text-black ">{{ $post->title }}</span>
                         <span
-                            class="text-sm block text-black block w-24 overflow-hidden text-ellipsis whitespace-nowrap">
-                            {!! $post->description !!}</span>
+                            class="text-black text-sm font-normal truncate line-clamp-1">{!! $post->description !!}...</span>
                     </td>
                     @if (auth()->user()->role == \App\Constants\RoleConstants::ADMINISTRATOR)
                         <td class="pinIcon" data-url="{{ route('post.changeStatusPin', $post->id) }}">
@@ -30,8 +36,14 @@
                                 <img src="{{ asset('images/push-pin.png') }}" class="h-6 w-6" alt="">
                             @endif
                         </td>
+                    @else
+                        <td>
+                            @if ($post->isPin())
+                                <img src="{{ asset('images/pin.png') }}" class="h-6 w-6" alt="">
+                            @endif
+                        </td>
                     @endif
-                    <td class="w-4 p-4">
+                    <td class="p-4">
                         <span class="font-normal">Comments</span>
                         <span class="font-bold text-black">{{ count($post->comments) }}</span>
                     </td>
@@ -41,7 +53,8 @@
                             alt=""data-tooltip-target="tooltip-no-arrow.{{ $post->id }}">
                         <span
                             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700"
-                            id="tooltip-no-arrow.{{ $post->id }}" role="tooltip">{{ $users[$post->user_id] }}</span>
+                            id="tooltip-no-arrow.{{ $post->id }}"
+                            role="tooltip">{{ $users[$post->user_id] }}</span>
                         <div class="ml-2">
                             <h6 class="font-bold text-black">{{ $post->title }}</h6>
                             <span class="font-normal" style='color:#C2C2C2'>{{ $post->created_at }}</span>

@@ -32,7 +32,6 @@ Route::middleware(['checkLoginUser'])->group(function () {
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
     Route::post('comment/like/{comment_id}', [CommentController::class, 'changeLikeComment'])->name('comment.like_action');
     Route::post('/post/comment/resolve/{comment_id}', [CommentController::class, 'changeStatusResolve'])->name('comment.changeStatusResolve');
-    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     Route::get("/mail", [MailController::class, "index"])->name("mail.index");
     Route::post("/sendmail", [MailController::class, "sendMail"])->name("mail.sendmail");
 
@@ -82,11 +81,11 @@ Route::middleware(['checkLoginUser'])->group(function () {
     Route::controller(DashboardController::class)->group(function () {
         Route::get('/', 'index')->name('dashboard');
     });
-
-    Route::get('/topics/{id}', [TopicController::class, 'show'])->name('topics.show');
+    Route::get('/topic/{id}/posts', [TopicController::class, 'show'])->name('topics.show');
     Route::middleware(['checkRoleAdmin'])->group(function () {
         Route::post('post/changeStatusPin/{post_id}', [PostController::class, 'changeStatusPin'])->name('post.changeStatusPin');
     });
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 });
 
 //login , logout
@@ -99,8 +98,3 @@ Route::controller(LoginController::class)->group(function () {
 Route::get('403-fobidden', function () {
     return view('403Auth');
 })->name('403.fobidden');
-
-// user
-Route::controller(UserController::class)->group(function () {
-    Route::get('/sort', 'sort')->name("user.sort");
-});

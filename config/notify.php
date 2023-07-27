@@ -1,7 +1,7 @@
 <?php
 
 return [
-    //General Options 
+    //General Options
     'options' => [
         'lib' => 'toastr', //toastr or pnotify
         'style' => 'custom', //default or custom (custum is recommended)

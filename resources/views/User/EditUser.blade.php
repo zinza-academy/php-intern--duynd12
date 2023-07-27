@@ -17,6 +17,9 @@
                             class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                             name="email" placeholder="email" />
                         <span id="msg_name" style="color:red;display:none">Không được dể trống</span>
+                        @error('email')
+                            <span class=" text-rose-600">{{ $message }}</span>
+                        @enderror
                     </div>
                 @endif
                 <div class="flex flex-col items-start gap-2 h-20 w-80">
@@ -25,10 +28,9 @@
                         class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
                         name="name" placeholder="Name" />
                     @error('name')
-                        {{-- <span class=" text-rose-600">{{$message}}</span> --}}
+                        <span class=" text-rose-600">{{ $message }}</span>
                     @enderror
                     <span id="msg_name" style="color:red;display:none">Không được dể trống</span>
-
                 </div>
                 @if (session('data')['role'] !== \App\Constants\RoleConstants::COMPANY_ACCOUNT)
                     <div class="flex flex-col items-start gap-2 h-20 w-80">
@@ -44,19 +46,24 @@
                     </div>
                 @endif
             </div>
-            <div class="flex items-end flex-row h-20 gap-2" style="width: 980px">
-                <div class="flex flex-col items-start gap-2 h-20 w-80">
-                    <label for="">Dob</label>
-                    <input value="{{ old('dob') ? old('dob') : $data['profile']['dob'] }}" type="date"
-                        class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                        name="dob" placeholder="Dob" />
+            <div class="flex items-center flex-row h-20 gap-2 w-[980px]">
+                <div>
+                    <div class="gap-2 h-20 w-80 mt-4">
+                        <label for="">Dob</label>
+                        <input value="{{ old('dob') ? old('dob') : $data['profile']['dob'] }}" type="date"
+                            class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
+                            name="dob" placeholder="date of birth" />
+                        @error('dob')
+                            <span class=" text-rose-600">{{ $message }}</span>
+                        @enderror
+                    </div>
                 </div>
                 @if (session('data')['role'] !== \App\Constants\RoleConstants::COMPANY_ACCOUNT)
                     <div class="flex flex-col items-start gap-2 h-20 w-80">
                         <label for="role">Role</label>
                         <select id='role'
                             class="border-2 bg-white rounded-md h-10 w-full py-1 pl-3 focus:outline-none focus:border-sky-500 focus:ring-sky-500"
-                            name="role" placeholder="Dob">
+                            name="role" placeholder="date of birth">
                             @foreach (App\Constants\RoleConstants::ARRAY_ROLE as $key => $role)
                                 <option {{ $data->role === $key ? 'selected' : '' }} value="{{ $key }}">
                                     {{ $role }}</option>
@@ -64,9 +71,6 @@
                         </select>
                     </div>
                 @endif
-                @error('dob')
-                    {{-- <span class=" text-rose-600">{{$message}}</span> --}}
-                @enderror
             </div>
             <button type="submit" class="bg-sky-500 hover:bg-sky-700 h-10 w-80 text-cyan-50">
                 Edit
