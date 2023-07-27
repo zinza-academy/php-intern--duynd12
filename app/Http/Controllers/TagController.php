@@ -91,7 +91,6 @@ class TagController extends Controller
     }
 
     // delete many tag
-
     public function deleteTags(Request $request)
     {
 
