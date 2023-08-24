@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model implements Authenticatable
+class User extends Model implements Authenticatable, JWTSubject
 {
     use HasFactory, AuthenticableTrait, SoftDeletes;
     protected $fillable = ['email', 'password', 'company_id', 'role'];
@@ -50,5 +51,15 @@ class User extends Model implements Authenticatable
     public function likes()
     {
         return $this->belongsToMany(Comment::class, 'comment_user');
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

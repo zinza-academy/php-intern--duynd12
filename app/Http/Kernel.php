@@ -67,6 +67,10 @@ class Kernel extends HttpKernel
         'checkRoleUser' => \App\Http\Middleware\CheckRoleUser::class,
         'checkRoleAdmin' => \App\Http\Middleware\CheckRoleAdmin::class,
         'company' => \App\Http\Middleware\CompanyMiddleWare::class,
-        'post' => \App\Http\Middleware\PostMiddleWare::class
+        'post' => \App\Http\Middleware\PostMiddleWare::class,
+        'jwt.verify' => \App\Http\Middleware\JwtMiddleware::class,
+        'checkAdminApi' => \App\Http\Middleware\api\CheckAdmin::class,
+        'userCreatedPost' => \App\Http\Middleware\api\UserCreatedPost::class,
+        'companyApi' => \App\Http\Middleware\api\Company::class
     ];
 }

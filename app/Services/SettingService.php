@@ -10,6 +10,7 @@ use Exception;
 use Helmesvs\Notify\Facades\Notify;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class SettingService
 {
@@ -34,7 +35,6 @@ class SettingService
         $id = $this->loginService->getSessionId();
         $userData = $this->userService->find($id);
         $data = $this->imageService->checkSizeImage($request, 'avatar', $data);
-
         $password = $userData['password'];
         $oldPassword = $data['oldPassword'];
         $newPassword = $data['password'];

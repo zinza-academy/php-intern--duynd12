@@ -57,11 +57,12 @@ class CommentService
     //setAttribute for comment
     public function setAttrComment($comment)
     {
-        if (count($comment['likes']) > 0) {
-            foreach ($comment['likes'] as $like) {
-                $array[] = $like->id;
-            }
-            $comment->setAttribute('user_id_liked', $array);
+        $array = [];
+        // if (count($comment['likes']) > 0) {
+        foreach ($comment['likes'] as $like) {
+            $array[] = $like->id;
         }
+        $comment->setAttribute('user_id_liked', $array);
+        // }
     }
 }

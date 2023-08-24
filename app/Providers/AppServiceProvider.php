@@ -8,8 +8,10 @@ use App\Models\Topic;
 use App\Observers\PostObserver;
 use App\Observers\TagObserver;
 use App\Observers\TopicObserver;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // URL::forceScheme('https');
         Paginator::useTailwind();
         Topic::observe(TopicObserver::class);
         Tag::observe(TagObserver::class);
