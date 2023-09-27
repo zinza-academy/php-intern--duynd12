@@ -1,6 +1,6 @@
 FROM composer:2.0
 
-FROM php:8.2
+FROM php:8.2-fpm
 
 ARG DEBIAN_FRONTEND=noninteractive
 

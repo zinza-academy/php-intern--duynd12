@@ -13,17 +13,6 @@ services:
       - 8081:80
     depends_on:
       - mysql
-      - php-fpm
-    networks:
-      - my-network
-
-  php-fpm:
-    build:
-      context: .
-      dockerfile: ./Docker/php-fpm/Dockerfile
-    container_name: laravel_php-fpm
-    volumes:
-      - ./:/var/www/html
     networks:
       - my-network
 
