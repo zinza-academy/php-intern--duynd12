@@ -12,8 +12,7 @@ use Illuminate\Support\Facades\DB;
 
 class PostService
 {
-    // insert data 
-
+    // insert data
     public function insertData($data)
     {
         $data['user_id'] = Auth::id();
@@ -33,22 +32,28 @@ class PostService
     }
 
     // update data
-
     public function updateData($data, int $id)
     {
         try {
             DB::beginTransaction();
+
             $post = Post::findOrFail($id);
             $post->update($data);
             $post->tags()->sync($data['tags']);
             Cache::forget(StatusConstants::KEY_CACHE_TOPIC);
 
             DB::commit();
-            Notify::success('Sửa post thành công');
+
+            return response()->json([
+                'message' => "Sửa thành công",
+                'status' => 200
+            ]);
         } catch (Exception $e) {
             DB::rollBack();
-            Notify::error($e->getMessage());
-            return back()->withInput($data);
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 }

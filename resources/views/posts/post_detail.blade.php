@@ -149,37 +149,39 @@
                         class="text-black bg-gray-300 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                 </div>
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
 
-        @section('js')
-            <script>
-                var routeSubmitContent = '{{ route('comments.store') }}';
+@section('js')
+    <script>
+        var routeSubmitContent = '{{ route('comments.store') }}';
 
-                $(document).on('click', '.listIconHeart', function(event) {
-                    let url = $(this).data('url');
-                    let element = $(this);
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        success: function(data) {
-                            element.siblings('span').text(data.totalHeart);
-                            element.replaceWith(data.content);
-                        },
-                        error: function(xhr) {}
-                    })
-                })
+        $(document).on('click', '.listIconHeart', function(event) {
+            let url = $(this).data('url');
+            let element = $(this);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function(data) {
+                    element.siblings('span').text(data.totalHeart);
+                    element.replaceWith(data.content);
+                },
+                error: function(xhr) {}
+            })
+        })
 
-                $(document).on('click', '.iconResolve', function(event) {
-                    let url = $(this).data('url');
-                    let element = $(this);
-                    $.ajax({
-                        url: url,
-                        type: 'POST',
-                        success: function(data) {
-                            location.reload();
-                        },
-                        error: function(xhr) {}
-                    })
-                })
-            </script>
-        @endsection
+        $(document).on('click', '.iconResolve', function(event) {
+            let url = $(this).data('url');
+            let element = $(this);
+            $.ajax({
+                url: url,
+                type: 'POST',
+                success: function(data) {
+                    location.reload();
+                },
+                error: function(xhr) {}
+            })
+        })
+    </script>
+@endsection

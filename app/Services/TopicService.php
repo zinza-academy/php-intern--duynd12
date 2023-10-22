@@ -22,8 +22,8 @@ class TopicService extends DatabaseService
         $topics = Topic::with(['posts' => function ($query) {
             $query->with('comments')
                 ->orderBy('posts.pin', 'desc')
-                ->orderBy('posts.created_at', 'desc')
-                ->take(\App\Constants\StatusConstants::LIMIT_RECORD);
+                ->orderBy('posts.created_at', 'desc');
+            // ->take(\App\Constants\StatusConstants::LIMIT_RECORD);
         }]);
 
         return $topics;
@@ -48,12 +48,10 @@ class TopicService extends DatabaseService
         $topics = Topic::with(['posts.comments'])
             ->findOrFail($id);
         if ($topics !== null) {
-            $posts = $this->sortDescDataWithSearch($topics, 'posts', $keyword)
+            $this->sortDescDataWithSearch($topics, 'posts', $keyword)
                 ->paginate(Pagination::LIMIT_RECORD);
-        } else {
-            return $topics;
         }
 
-        return $posts;
+        return $topics;
     }
 }

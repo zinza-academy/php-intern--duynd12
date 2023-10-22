@@ -23,9 +23,9 @@ class PostRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'description' => 'nullable|string',
-            'topic_id' => 'nullable|int',
-            'status' => 'nullable|int',
+            'description' => 'required|string',
+            'topic_id' => 'required|int',
+            'status' => 'required|int',
             'tags' => 'required|array'
         ];
     }

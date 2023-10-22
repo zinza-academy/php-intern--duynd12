@@ -4,17 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class AddUserRequest extends FormRequest
+class UserUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        // if (session('data')['role'] !== \App\Constants\RoleConstants::MEMBER) {
-        //     return true;
-        // }
-        // return false;
         return true;
     }
 
@@ -25,14 +21,13 @@ class AddUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return  [
+        return [
+            'confirmPassword' => 'nullable|same:password',
+            "password" => "nullable",
+            "oldPassword" => "nullable",
+            'dob' => 'required|date',
             'name' => 'required|string',
-            'email' => 'required|email|unique:users|max:255',
-            'password' => 'required|string',
-            'dob' => 'required|date|before:today',
-            'role' => 'nullable|int|between:1,3',
-            'company_id' => 'nullable|int',
-            'status' => 'nullable|between:0,1'
+            'avatar' => 'nullable|mimes:jpeg,png,jgp,jpg|max:1024',
         ];
     }
 }

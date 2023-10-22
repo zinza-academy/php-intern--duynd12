@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\api;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CompanyRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,12 +22,11 @@ class CompanyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string',
-            'address' => 'required|string',
-            'logo' => 'nullable|mimes:jpeg,png,jgp,jpg|max:1024',
-            'max_users' => 'required|numeric|min:0',
-            'expired_time' => 'nullable|date',
-            'status' => 'required|integer'
+            'title' => 'required|string',
+            'description' => 'nullable|string',
+            'topic_id' => 'nullable|int',
+            'status' => 'nullable|int',
+            'tags' => 'required|integer'
         ];
     }
 }
